@@ -15,7 +15,6 @@ import java.sql.Statement;
 public class MainActivity extends AppCompatActivity {
 
     Connection connection;
-    String connection_result;
     TextView t1,t2 ;
     EditText e1;
     @Override
@@ -24,10 +23,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void Btnclick(View v){
+    public void Btnclick(View v) throws SQLException, ClassNotFoundException {
         t1= findViewById(R.id.user_name);
         e1=findViewById(R.id.Plain_1);
         t1.setText(e1.getText());
+        getvalue_database(v);
     }
     public void getvalue_database(View view) throws SQLException, ClassNotFoundException {
         Connect_SQL  connectSql=new Connect_SQL("root","jrpjp#321",
