@@ -1,5 +1,7 @@
 package com.example.first;
 
+import android.util.Log;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -16,13 +18,17 @@ public class Connect_SQL {
      this.port=port;
     }
 
-    public Connection getConnection() throws ClassNotFoundException, SQLException {
+    public Connection Connection_get() throws ClassNotFoundException, SQLException {
         connection=null;
         String url;
-        Class.forName("net.sourceforge.jtds.jdbc.Driver");
-        url="jdbc:jtds:sqlserver://"+ip_addr+":"+port+";"+"databasename="+database+
-                ";user="+username+";password="+pass+";";
-        connection= DriverManager.getConnection(url);
+        //Class.forName("net.sourceforge.jtds.jdbc.Driver");
+        Class.forName("com.mysql.jdbc.Driver");
+//        url="jdbc:jtds:sqlserver://"+ip_addr+":"+port+";"+"databasename="+database+
+//                ";user="+username+";password="+pass+";";
+        url="jdbc:mysql://"+ip_addr+":"+port+"/"+database;
+//        connection= DriverManager.getConnection(url,username,pass);
+        connection= DriverManager.getConnection(url,username,pass);
+        Log.e("mytag**************",connection.toString());
         return connection;
     }
 }
