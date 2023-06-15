@@ -1,5 +1,6 @@
 package com.example.first;
 
+import androidx.annotation.MainThread;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -64,23 +65,33 @@ public class MainActivity extends AppCompatActivity {
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-                while (true) {
-                    try {
-                        if (!res.next()) break;
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                    try {
-                        t1.setText(res.getString(2));
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                    try {
-                        t2.setText(res.getString(4));
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
+
+                ResultSet finalRes = res;
+                runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            while (true) {
+                                try {
+                                    if (!finalRes.next()) break;
+                                } catch (SQLException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            try {
+                                t1.setText(finalRes.getString(2));
+                            } catch (SQLException e) {
+                                throw new RuntimeException(e);
+                            }
+
+                            try {
+                                t2.setText(finalRes.getString(4));
+                            } catch (SQLException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                        }
+                    });
+
+
 
             }
         });
