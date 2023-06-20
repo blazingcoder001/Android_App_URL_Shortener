@@ -4,47 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@drawable/shiny_bgtot"
+    tools:context=".MainActivity"
+    >
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent=".20" />
+        app:layout_constraintGuide_percent="0.13" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent=".8" />
+        app:layout_constraintGuide_percent="0.87" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent=".20"/>
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".80" />
+        app:layout_constraintGuide_percent="0.8" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/view_main"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:cardElevation="6dp"
+        app:cardCornerRadius="10dp"
         app:layout_constraintStart_toStartOf="@id/guideline1"
         app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintTop_toTopOf="@id/guideline3"
-        app:layout_constraintBottom_toBottomOf="@id/guideline4">
+        app:layout_constraintBottom_toBottomOf="@id/guideline4"
+        >
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#689F38">
+            android:background="@drawable/shiny_bgtot"
+            >
 
 <!--            <TextView-->
 <!--                android:id="@+id/user_name"-->
@@ -77,7 +85,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Enter Your Username"
                     android:inputType="text"
-                    android:visibility="visible"/>
+                    android:visibility="visible"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
