@@ -3,6 +3,7 @@ package com.example.first;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        TextView t1;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         TextInputLayout userl=findViewById(R.id.username);
@@ -63,6 +65,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         });
+        t1=findViewById(R.id.not_user);
+        t1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent signup=new Intent(MainActivity.this, SignUp.class);
+                startActivity(signup);
+            }
+        });
+
     }
 
 
