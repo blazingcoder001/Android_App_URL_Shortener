@@ -8,6 +8,7 @@
     tools:context=".MainActivity"
     >
 
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline1"
         android:layout_width="wrap_content"
@@ -126,7 +127,7 @@
                 style="@style/Widget.Material3.Button.IconButton.Filled"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#689F38"
+                android:backgroundTint="@color/onPrimary"
                 android:elevation="10dp"
 
                 android:onClick="Btnclick"
