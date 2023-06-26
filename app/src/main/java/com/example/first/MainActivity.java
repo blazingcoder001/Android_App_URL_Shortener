@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
         EditText user=userl.getEditText();
         TextInputLayout passwordl=findViewById(R.id.password);
         EditText password=passwordl.getEditText();
-        ViewGroup.LayoutParams from= password.getLayoutParams();
-        user.setLayoutParams(from);
+//        ViewGroup.LayoutParams from= password.getLayoutParams();
+//        user.setLayoutParams(from);
         password.setOnTouchListener(new View.OnTouchListener() {
             @SuppressLint("ClickableViewAccessibility")
             @Override

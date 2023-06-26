@@ -53,17 +53,7 @@
             android:layout_height="match_parent"
             android:background="#757575">
 
-            <!--            <TextView-->
-            <!--                android:id="@+id/user_name"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="Hello World!"-->
-            <!--                android:visibility="visible"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toTopOf="parent"-->
-            <!--                tools:visibility="visible" />-->
+
             <TextView
                 android:id="@+id/first"
                 android:layout_width="wrap_content"
@@ -208,12 +198,7 @@
                     android:visibility="visible"
                     android:inputType="textPassword"
                     android:drawableRight="@drawable/eye" />
-                <!--                app:layout_constraintBottom_toTopOf="@id/button1"-->
-                <!--                app:layout_constraintEnd_toEndOf="parent"-->
-                <!--                app:layout_constraintHorizontal_bias="0.497"-->
-                <!--                app:layout_constraintStart_toStartOf="parent"-->
-                <!--                app:layout_constraintTop_toBottomOf="@id/usernameinp"-->
-                <!--                app:layout_constraintVertical_bias="0.485" />-->
+
 
             </com.google.android.material.textfield.TextInputLayout>
             <TextView
@@ -284,16 +269,7 @@
                 app:layout_constraintTop_toBottomOf="@id/button1" />
 
 
-            <!--                <TextView-->
-            <!--                    android:id="@+id/Pass"-->
-            <!--                    android:layout_width="wrap_content"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:text="TextView"-->
-            <!--                    app:layout_constraintBottom_toTopOf="@+id/Plain_1"-->
-            <!--                    app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                    app:layout_constraintStart_toStartOf="parent"-->
-            <!--                    app:layout_constraintTop_toBottomOf="@+id/user_name" />-->
-            <!--                />-->
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
