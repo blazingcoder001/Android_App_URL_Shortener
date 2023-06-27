@@ -232,7 +232,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="Retype Password         "
-                    android:inputType="text"
+                    android:inputType="textPassword"
                     android:visibility="visible"
                     android:drawableEnd="@drawable/eye"
                     android:drawableRight="@drawable/eye"/>
@@ -246,7 +246,6 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/onPrimary"
                 android:elevation="10dp"
-
                 android:onClick="Btnclick"
                 android:shadowColor="@color/black"
                 android:text="Sign up"
