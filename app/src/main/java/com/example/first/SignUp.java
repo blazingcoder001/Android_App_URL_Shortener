@@ -19,7 +19,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class SignUp extends AppCompatActivity {
+
+    Connection connection;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -125,5 +132,61 @@ public class SignUp extends AppCompatActivity {
                 startActivity(login);
             }
         });
+    }
+    public void Btnclick(View v)  {
+
+        getvalue_database(v);
+    }
+    public void getvalue_database(View view)  {
+
+        Thread t= new Thread(new Runnable() {
+            TextInputLayout userl,passwordl,firstinpl,lastinpl;
+            EditText user,password,firstinp,lastinp;
+
+
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public void run() {
+
+                Connect_SQL connectSql = new Connect_SQL("JP", "jrpjp#321",
+                        "129.21.136.123", "first", "3306");
+                try {
+                    connection = connectSql.Connection_get();
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                userl=findViewById(R.id.usernameinp);
+                user=userl.getEditText();
+                passwordl=findViewById(R.id.passwordinp);
+                password=passwordl.getEditText();
+                firstinpl=findViewById(R.id.firstinp);
+                firstinp=firstinpl.getEditText();
+                lastinpl=findViewById(R.id.lastinp);
+                lastinp=lastinpl.getEditText();
+
+
+                String query = "INSERT INTO samplespace1 (Username, Password, firstname, lastname) VALUES ("+"'"+user.getText().toString()+"','"+password.getText().toString()+"','"+
+                firstinp.getText().toString()+"','"+lastinp.getText().toString()+"');";
+                Statement s1 = null;
+                try {
+                    s1 = connection.createStatement();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                ResultSet res = null;
+                try {
+                   int keys= s1.executeUpdate(query);
+
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+//
+            }
+        });
+        t.start();
+
     }
 }
