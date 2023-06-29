@@ -20,6 +20,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -111,8 +112,8 @@ public class MainActivity extends AppCompatActivity {
                 t1=findViewById(R.id.not_user);
 
 
-                String query = "select * from samplespace1 where Username='"+user.getText().toString()+"' and Password='"+password.getText().toString()+"';";
-                Statement s1 = null;
+                String query = "select * from samplespace1 where upper(Username)=upper('"+user.getText().toString()+"') and upper(Password) =upper('"+password.getText().toString()+"');";
+                Statement s1;
                 try {
                     s1 = connection.createStatement();
                 } catch (SQLException e) {
@@ -131,11 +132,30 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
                             while (true) {
                                 try {
-                                    if (!finalRes.next()) break;
+                                    if (!finalRes.next()) {
+                                        int k;
+                                        Executor parallel= new Executor(user,password, connection);
+                                        k=parallel.perform_execute();
+                                        if(k==2)
+                                        {
+                                            userl.setError("Username does not exist.");
+                                            passwordl.setError(null);
+                                        }
+                                        else{
+                                            passwordl.setError("Password is incorrect.");
+                                            userl.setError(null);
+                                        }
+
+                                        break;
+                                    }
                                 } catch (SQLException e) {
                                     throw new RuntimeException(e);
+                                } catch (ExecutionException e) {
+                                    throw new RuntimeException(e);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
                                 }
-                            try {
+                                try {
                                 t1.setText(finalRes.getString(2));
                             } catch (SQLException e) {
                                 throw new RuntimeException(e);
@@ -145,8 +165,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                         }
                     });
-
-
 
             }
         });

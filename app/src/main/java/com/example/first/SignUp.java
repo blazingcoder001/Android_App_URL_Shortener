@@ -136,6 +136,9 @@ public class SignUp extends AppCompatActivity {
     public void Btnclick(View v)  {
 
         getvalue_database(v);
+        Intent login=new Intent(SignUp.this, MainActivity.class);
+        startActivity(login);
+
     }
     public void getvalue_database(View view)  {
 
@@ -175,9 +178,8 @@ public class SignUp extends AppCompatActivity {
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-                ResultSet res = null;
                 try {
-                   int keys= s1.executeUpdate(query);
+                   s1.executeUpdate(query);
 
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
