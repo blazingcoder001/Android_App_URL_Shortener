@@ -23,10 +23,15 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import kotlin.jvm.Volatile;
 
 public class SignUp extends AppCompatActivity {
 
     Connection connection;
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -136,8 +141,7 @@ public class SignUp extends AppCompatActivity {
     public void Btnclick(View v)  {
 
         getvalue_database(v);
-        Intent login=new Intent(SignUp.this, MainActivity.class);
-        startActivity(login);
+
 
     }
     public void getvalue_database(View view)  {
@@ -145,6 +149,7 @@ public class SignUp extends AppCompatActivity {
         Thread t= new Thread(new Runnable() {
             TextInputLayout userl,passwordl,firstinpl,lastinpl;
             EditText user,password,firstinp,lastinp;
+            volatile int z=0;
 
 
             @SuppressLint("ClickableViewAccessibility")
@@ -160,32 +165,85 @@ public class SignUp extends AppCompatActivity {
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-                userl=findViewById(R.id.usernameinp);
-                user=userl.getEditText();
-                passwordl=findViewById(R.id.passwordinp);
-                password=passwordl.getEditText();
-                firstinpl=findViewById(R.id.firstinp);
-                firstinp=firstinpl.getEditText();
-                lastinpl=findViewById(R.id.lastinp);
-                lastinp=lastinpl.getEditText();
+                userl = findViewById(R.id.usernameinp);
+                user = userl.getEditText();
+                passwordl = findViewById(R.id.passwordinp);
+                password = passwordl.getEditText();
+                firstinpl = findViewById(R.id.firstinp);
+                firstinp = firstinpl.getEditText();
+                lastinpl = findViewById(R.id.lastinp);
+                lastinp = lastinpl.getEditText();
+                String query1 = "select * from samplespace1 where upper(Username)=upper('" + user.getText().toString() + "');";
+                Statement s1;
 
-
-                String query = "INSERT INTO samplespace1 (Username, Password, firstname, lastname) VALUES ("+"'"+user.getText().toString()+"','"+password.getText().toString()+"','"+
-                firstinp.getText().toString()+"','"+lastinp.getText().toString()+"');";
-                Statement s1 = null;
                 try {
                     s1 = connection.createStatement();
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
+                ResultSet res = null;
                 try {
-                   s1.executeUpdate(query);
-
+                    res = s1.executeQuery(query1);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
 
-//
+                ResultSet finalRes = res;
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        while (true) {
+                            try {
+                                if (!finalRes.next()) {
+                                    Log.d("********",String.valueOf(z));
+                                    break;
+                                }
+                            } catch (SQLException e) {
+                                throw new RuntimeException(e);
+                            }
+                            try {
+                                z=1;
+                                Log.d("********",String.valueOf(z));
+
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                        Log.d("********",String.valueOf(z));
+
+                    }
+                });
+                Log.d("********final",String.valueOf(z));
+
+                if (z== 0) {
+                    String query2 = "INSERT INTO samplespace1 (Username, Password, firstname, lastname) VALUES (" + "'" + user.getText().toString() + "','" + password.getText().toString() + "','" +
+                            firstinp.getText().toString() + "','" + lastinp.getText().toString() + "');";
+                    Statement s2 = null;
+                    try {
+                        s2 = connection.createStatement();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        s2.executeUpdate(query2);
+
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    Intent login=new Intent(SignUp.this, MainActivity.class);
+                    startActivity(login);
+
+                }
+                else{
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            userl.setError("User already exists. Please Login to continue.");
+                        }
+                    });
+                }
             }
         });
         t.start();
