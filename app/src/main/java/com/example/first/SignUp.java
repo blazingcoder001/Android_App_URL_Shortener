@@ -24,16 +24,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
-import kotlin.jvm.Volatile;
-
 public class SignUp extends AppCompatActivity {
 
     Connection connection;
+    final  boolean[] b = new boolean[1];
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -46,6 +40,7 @@ public class SignUp extends AppCompatActivity {
         EditText password= passwordl[0].getEditText();
         TextInputLayout retypepasswordl=findViewById(R.id.retypeinp);
         EditText retypepassword=retypepasswordl.getEditText();
+
         password.setOnTouchListener(new View.OnTouchListener() {
             @SuppressLint("ClickableViewAccessibility")
             @Override
@@ -75,7 +70,7 @@ public class SignUp extends AppCompatActivity {
         });
 
         retypepassword.addTextChangedListener(new TextWatcher() {
-            boolean b;
+
             String s;
             check_retype c=new check_retype();
 
@@ -87,8 +82,8 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 s = passwordl[0].getEditText().getText().toString();
-                b=c.check(s, charSequence.toString());
-                if(b==false) {
+                b[0] =c.check(s, charSequence.toString());
+                if(b[0] ==false) {
                     out[0] ="Password does not match!";
                     retypepasswordl.setError(out[0]);
                 }
@@ -204,7 +199,6 @@ public class SignUp extends AppCompatActivity {
                         while (true) {
                             try {
                                 if (!finalRes.next()) {
-                                    Log.d("********",String.valueOf(z));
                                     break;
                                 }
                             } catch (SQLException e) {
@@ -212,25 +206,22 @@ public class SignUp extends AppCompatActivity {
                             }
                             try {
                                 z=1;
-                                Log.d("********",String.valueOf(z));
 
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
 
                         }
-                        Log.d("********",String.valueOf(z));
                         count.countDown();
                     }
 
                 });
-                Log.d("********final",String.valueOf(z));
                 try {
                     count.await();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                if (z== 0) {
+                if (z== 0 && b[0]==true) {
                     String ind_sel = "select max(Ind) from samplespace1;";
                     Statement s3;
                     try {
@@ -258,7 +249,8 @@ public class SignUp extends AppCompatActivity {
                     }
 
 
-                    String query2 = "INSERT INTO samplespace1 (Ind, Username, Password, firstname, lastname) VALUES (" +ind+ ",'" + user.getText().toString() + "','" + password.getText().toString() + "','" +
+                    String query2 = "INSERT INTO samplespace1 (Ind, Username, Password, firstname, lastname) VALUES" +
+                            " (" +ind+ ",'" + user.getText().toString() + "','" + password.getText().toString() + "','" +
                             firstinp.getText().toString() + "','" + lastinp.getText().toString() + "');";
 
                     Statement s2 = null;
@@ -277,11 +269,11 @@ public class SignUp extends AppCompatActivity {
                     startActivity(login);
 
                 }
-                else{
+                else if (z!=0){
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            userl.setError("User already exists. Please Login to continue.");
+                            userl.setError("User already exists. Please Login.");
                         }
                     });
                 }
