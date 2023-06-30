@@ -23,8 +23,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import kotlin.jvm.Volatile;
 
@@ -149,12 +152,15 @@ public class SignUp extends AppCompatActivity {
         Thread t= new Thread(new Runnable() {
             TextInputLayout userl,passwordl,firstinpl,lastinpl;
             EditText user,password,firstinp,lastinp;
-            volatile int z=0;
+            int z = 0;
+
 
 
             @SuppressLint("ClickableViewAccessibility")
             @Override
             public void run() {
+
+
 
                 Connect_SQL connectSql = new Connect_SQL("JP", "jrpjp#321",
                         "129.21.136.123", "first", "3306");
@@ -175,7 +181,7 @@ public class SignUp extends AppCompatActivity {
                 lastinp = lastinpl.getEditText();
                 String query1 = "select * from samplespace1 where upper(Username)=upper('" + user.getText().toString() + "');";
                 Statement s1;
-
+                int ind = 0;
                 try {
                     s1 = connection.createStatement();
                 } catch (SQLException e) {
@@ -189,8 +195,9 @@ public class SignUp extends AppCompatActivity {
                 }
 
                 ResultSet finalRes = res;
-
+                CountDownLatch count=new CountDownLatch(1);
                 runOnUiThread(new Runnable() {
+
                     @Override
                     public void run() {
 
@@ -210,16 +217,50 @@ public class SignUp extends AppCompatActivity {
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
+
                         }
                         Log.d("********",String.valueOf(z));
-
+                        count.countDown();
                     }
+
                 });
                 Log.d("********final",String.valueOf(z));
-
+                try {
+                    count.await();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 if (z== 0) {
-                    String query2 = "INSERT INTO samplespace1 (Username, Password, firstname, lastname) VALUES (" + "'" + user.getText().toString() + "','" + password.getText().toString() + "','" +
+                    String ind_sel = "select max(Ind) from samplespace1;";
+                    Statement s3;
+                    try {
+                        s3 = connection.createStatement();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    ResultSet res2;
+                    try {
+                        res2 = s3.executeQuery(ind_sel);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        if(res2.next()) {
+                            try {
+                                ind=res2.getInt(1);
+                                ind++;
+                            } catch (SQLException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+
+
+                    String query2 = "INSERT INTO samplespace1 (Ind, Username, Password, firstname, lastname) VALUES (" +ind+ ",'" + user.getText().toString() + "','" + password.getText().toString() + "','" +
                             firstinp.getText().toString() + "','" + lastinp.getText().toString() + "');";
+
                     Statement s2 = null;
                     try {
                         s2 = connection.createStatement();

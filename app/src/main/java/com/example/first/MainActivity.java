@@ -126,8 +126,8 @@ public class MainActivity extends AppCompatActivity {
                     throw new RuntimeException(e);
                 }
 
-                ResultSet finalRes = res;
-                runOnUiThread(new Runnable() {
+                ResultSet  finalRes = res;
+                 runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             while (true) {
@@ -157,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 try {
                                 t1.setText(finalRes.getString(2));
+                                break;
                             } catch (SQLException e) {
                                 throw new RuntimeException(e);
                             }
