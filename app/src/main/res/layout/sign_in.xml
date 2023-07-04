@@ -138,28 +138,119 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
 
-        <androidx.drawerlayout.widget.DrawerLayout
-            android:id="@+id/drawer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintEnd_toStartOf="@id/guidelinecard"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-
-            <com.google.android.material.navigation.NavigationView
-                android:id="@+id/nav"
+            <androidx.drawerlayout.widget.DrawerLayout
+                android:id="@+id/drawer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:elevation="12dp"
-                android:layout_gravity="start"
-                app:menu="@menu/navigation_drawer"
-                app:headerLayout="@layout/header_navigation_drawer"
-                app:drawerLayoutCornerSize="5dp"
-                />
+                android:layout_height="match_parent">
 
-        </androidx.drawerlayout.widget.DrawerLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/to_shorten"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Enter the URL \nto be shortened:"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@id/to_shorten_inp"
+                        app:layout_constraintEnd_toStartOf="@id/to_shorten_inp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/to_shorten_inp" />
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/to_shorten_inp"
+                        style="?attr/textInputFilledStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginBottom="15dp"
+                        app:hintEnabled="false"
+                        app:layout_constraintBottom_toTopOf="@id/wish"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.497"
+                        app:layout_constraintStart_toEndOf="@id/to_shorten"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.485"
+                        app:layout_constraintVertical_chainStyle="packed">
+
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="                                            "
+                            android:inputType="text"
+                            android:visibility="visible" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/wish"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Enter the desired \nback-half:"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@id/wish_inp"
+                        app:layout_constraintEnd_toStartOf="@id/wish_inp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/wish_inp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/wish_inp"
+                        style="?attr/textInputFilledStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginBottom="15dp"
+                        app:hintEnabled="false"
+                        app:layout_constraintBottom_toTopOf="@id/button1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.497"
+                        app:layout_constraintStart_toEndOf="@id/wish"
+                        app:layout_constraintTop_toBottomOf="@id/to_shorten_inp"
+                        app:layout_constraintVertical_bias="0.485">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="                                            "
+                            android:inputType="text"
+                            android:visibility="visible" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button1"
+                        style="@style/Widget.Material3.Button.IconButton.Filled"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:backgroundTint="@color/onPrimary"
+                        android:elevation="10dp"
+                        android:onClick="Btnclick"
+                        android:shadowColor="@color/black"
+                        android:text="Shorten"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/wish_inp"
+                        app:rippleColor="@color/blue" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <com.google.android.material.navigation.NavigationView
+                    android:id="@+id/nav"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="start"
+                    android:elevation="12dp"
+                    app:drawerLayoutCornerSize="5dp"
+                    app:headerLayout="@layout/header_navigation_drawer"
+                    app:menu="@menu/navigation_drawer" />
+
+            </androidx.drawerlayout.widget.DrawerLayout>
 
 
         <com.google.android.material.appbar.AppBarLayout
@@ -178,97 +269,7 @@
 
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
-            <TextView
-                android:id="@+id/to_shorten"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Enter the URL \nto be shortened:"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/to_shorten_inp"
-                app:layout_constraintTop_toTopOf="@id/to_shorten_inp"
-                app:layout_constraintBottom_toBottomOf="@id/to_shorten_inp"
-                />
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/to_shorten_inp"
-                style="?attr/textInputFilledStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:hintEnabled="false"
-                app:layout_constraintBottom_toTopOf="@id/wish"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
-                app:layout_constraintStart_toEndOf="@id/to_shorten"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed"
-                android:layout_marginBottom="15dp"
-                android:layout_marginLeft="15dp"
-                app:layout_constraintVertical_bias="0.485">
-
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="                                            "
-                    android:inputType="text"
-                    android:visibility="visible" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-            <TextView
-                android:id="@+id/wish"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Enter the desired \nback-half:"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/wish_inp"
-                app:layout_constraintTop_toTopOf="@id/wish_inp"
-                app:layout_constraintBottom_toBottomOf="@id/wish_inp"
-                />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/wish_inp"
-                style="?attr/textInputFilledStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:hintEnabled="false"
-                app:layout_constraintBottom_toTopOf="@id/button1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
-                app:layout_constraintStart_toEndOf="@id/wish"
-                android:layout_marginBottom="15dp"
-                android:layout_marginLeft="15dp"
-                app:layout_constraintTop_toBottomOf="@id/to_shorten_inp"
-                app:layout_constraintVertical_bias="0.485">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="                                            "
-                    android:visibility="visible"
-                    android:inputType="text" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button1"
-                style="@style/Widget.Material3.Button.IconButton.Filled"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/onPrimary"
-                android:elevation="10dp"
-                android:onClick="Btnclick"
-                android:shadowColor="@color/black"
-                android:text="Shorten"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginBottom="15dp"
-                app:layout_constraintTop_toBottomOf="@+id/wish_inp"
-                app:rippleColor="@color/blue" />
 
 
 
