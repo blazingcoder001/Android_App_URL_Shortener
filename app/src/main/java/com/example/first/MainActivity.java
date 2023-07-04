@@ -155,15 +155,13 @@ public class MainActivity extends AppCompatActivity {
                                 } catch (InterruptedException e) {
                                     throw new RuntimeException(e);
                                 }
-                                try {
-                                t1.setText(finalRes.getString(2));
+                                //                                t1.setText(finalRes.getString(2));
+                                Intent signin= new Intent(MainActivity.this, SignIn.class);
+                                startActivity(signin);
                                 break;
-                            } catch (SQLException e) {
-                                throw new RuntimeException(e);
+
+
                             }
-
-
-                        }
                         }
                     });
 

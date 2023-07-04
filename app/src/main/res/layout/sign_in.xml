@@ -48,10 +48,15 @@
         >
 
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#757575">
+
+
+
+
 
 
             <TextView
@@ -146,7 +151,50 @@
                 app:layout_constraintTop_toBottomOf="@+id/wish_inp"
                 app:rippleColor="@color/blue" />
 
-<!--            <TextView-->
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelinecard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:elevation="12dp"
+                app:layout_constraintGuide_percent="0.5" />
+            <androidx.drawerlayout.widget.DrawerLayout
+                android:id="@+id/drawer"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintEnd_toStartOf="@id/guidelinecard"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+            <com.google.android.material.navigation.NavigationView
+                android:id="@+id/nav"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintEnd_toStartOf="@id/guidelinecard"
+                app:layout_constraintStart_toStartOf="parent"
+                android:elevation="12dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@color/white"
+                app:menu="@menu/navigation_drawer"
+                app:headerLayout="@layout/header_navigation_drawer"
+                app:drawerLayoutCornerSize="5dp"
+                />
+            </androidx.drawerlayout.widget.DrawerLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <!--            <TextView-->
 <!--                android:id="@+id/user"-->
 <!--                android:layout_width="wrap_content"-->
 <!--                android:layout_height="wrap_content"-->
@@ -156,27 +204,6 @@
 <!--                app:layout_constraintEnd_toEndOf="parent"-->
 <!--                app:layout_constraintStart_toStartOf="parent"-->
 <!--                app:layout_constraintTop_toBottomOf="@id/button1" />-->
-
-
-
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
-    <!--        <com.google.android.material.navigation.NavigationView-->
-    <!--            android:layout_width="0dp"-->
-    <!--            android:layout_height="0dp"-->
-    <!--            app:layout_constraintEnd_toStartOf="@id/guideline1"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:menu="@menu/navigation_drawer"/>-->
-
-
-    <!--    <androidx.constraintlayout.widget.Guideline-->
-    <!--        android:id="@+id/guideline1"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="vertical"-->
-    <!--        app:layout_constraintGuide_percent="0.5" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
+
