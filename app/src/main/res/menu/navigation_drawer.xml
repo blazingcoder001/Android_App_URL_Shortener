@@ -6,18 +6,18 @@
         android:title="" >
         <menu>
             <item
-                android:id="@+id/inbox_item"
+                android:id="@+id/Change"
                 android:title="Change Password"
                 android:checkable="true"
                 android:background="@drawable/item_shape"
                 />
             <item
-                android:id="@+id/outbox_item"
+                android:id="@+id/out"
                 android:title="Sign out"
                 android:checkable="true"
                 android:background="@drawable/item_shape"/>
             <item
-                android:id="@+id/favourites_item"
+                android:id="@+id/delete"
                 android:title="Delete Account"
                 android:checkable="true"
                 android:background="@drawable/item_shape"/>

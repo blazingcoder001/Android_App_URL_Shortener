@@ -18,4 +18,5 @@
  <color name="black">#000000</color>
  <color name="scrim">#55000000</color>
  <color name="onPrimary">#689F38</color>
+ <color name="background">#757575</color>
 </resources>
