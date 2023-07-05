@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/shiny_bgtot"
+    tools:context=".SignUp"
+    >
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.04" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.94" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/view_main"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardElevation="6dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#757575">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelinecard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="12dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.3" />
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <androidx.drawerlayout.widget.DrawerLayout
+                    android:id="@+id/drawer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/password"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Enter the old \npassword:"
+                            android:textColor="@color/white"
+                            app:layout_constraintBottom_toBottomOf="@id/password_old_inp"
+                            app:layout_constraintEnd_toStartOf="@id/password_old_inp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/password_old_inp" />
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/password_old_inp"
+                            style="?attr/textInputFilledStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:hintEnabled="false"
+                            app:layout_constraintBottom_toTopOf="@id/password_new_inp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.497"
+                            app:layout_constraintStart_toEndOf="@id/password"
+                            android:layout_marginBottom="15dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.485">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableEnd="@drawable/eye"
+                                android:hint="Enter Your Password  "
+                                android:visibility="visible"
+                                android:inputType="textPassword"
+                                android:drawableRight="@drawable/eye" />
+
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:id="@+id/password_new"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Enter the new \npassword:"
+                            android:textColor="@color/white"
+                            app:layout_constraintBottom_toBottomOf="@id/password_new_inp"
+                            app:layout_constraintEnd_toStartOf="@id/password_new_inp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/password_new_inp" />
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/password_new_inp"
+                            style="?attr/textInputFilledStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:hintEnabled="false"
+                            app:layout_constraintBottom_toTopOf="@id/password_retype_inp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.497"
+                            app:layout_constraintStart_toEndOf="@id/password_new"
+                            android:layout_marginBottom="15dp"
+                            app:layout_constraintTop_toBottomOf="@id/password_old_inp"
+                            app:layout_constraintVertical_bias="0.485">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableEnd="@drawable/eye"
+                                android:hint="Enter Your Password  "
+                                android:visibility="visible"
+                                android:inputType="textPassword"
+                                android:drawableRight="@drawable/eye" />
+
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <TextView
+                            android:id="@+id/password_retype"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Retype the new \npassword:"
+                            android:textColor="@color/white"
+                            app:layout_constraintBottom_toBottomOf="@id/password_retype_inp"
+                            app:layout_constraintEnd_toStartOf="@id/password_retype_inp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/password_retype_inp" />
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/password_retype_inp"
+                            style="?attr/textInputFilledStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:hintEnabled="false"
+                            app:layout_constraintBottom_toTopOf="@id/button1"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.497"
+                            app:layout_constraintStart_toEndOf="@id/password_retype"
+                            android:layout_marginBottom="15dp"
+                            app:layout_constraintTop_toBottomOf="@id/password_new_inp"
+                            app:layout_constraintVertical_bias="0.485">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableEnd="@drawable/eye"
+                                android:hint="Enter Your Password  "
+                                android:visibility="visible"
+                                android:inputType="textPassword"
+                                android:drawableRight="@drawable/eye" />
+
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/button1"
+                            style="@style/Widget.Material3.Button.IconButton.Filled"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="15dp"
+                            android:backgroundTint="@color/onPrimary"
+                            android:elevation="10dp"
+                            android:onClick="Btnclick"
+                            android:shadowColor="@color/black"
+                            android:text="Shorten"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/password_retype_inp"
+                            app:rippleColor="@color/blue" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <com.google.android.material.navigation.NavigationView
+                        android:id="@+id/nav"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="start"
+                        android:elevation="12dp"
+                        app:drawerLayoutCornerSize="5dp"
+                        app:headerLayout="@layout/header_navigation_drawer"
+                        app:menu="@menu/navigation_drawer" />
+
+                </androidx.drawerlayout.widget.DrawerLayout>
+                <com.google.android.material.appbar.AppBarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.appbar.MaterialToolbar
+                        android:id="@+id/topAppBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        app:title=""
+                        app:menu="@menu/top_app_bar"
+                        app:navigationIcon="@drawable/ham_18" />
+
+                </com.google.android.material.appbar.AppBarLayout>
+
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+
+
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
