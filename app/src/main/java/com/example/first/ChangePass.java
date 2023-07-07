@@ -11,7 +11,10 @@ import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.sql.Connection;
@@ -34,6 +37,12 @@ public class ChangePass extends AppCompatActivity {
         TextInputLayout new_pa_ret = findViewById(R.id.password_retype_inp);
         EditText new_pa_ret_ed = new_pa_ret.getEditText();
         EditText username;
+        DrawerLayout side=findViewById(R.id.drawer);
+        NavigationView navigationView= findViewById(R.id.nav);
+        MaterialToolbar topappbar= findViewById(R.id.topAppBar);
+        Context context= ChangePass.this;
+        Navigation navigation= new Navigation( context, side, navigationView,topappbar);
+        navigation.navexecute();
 
         new_pa_ret_ed.addTextChangedListener(new TextWatcher() {
             String s, out;
