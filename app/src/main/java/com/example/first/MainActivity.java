@@ -3,7 +3,9 @@ package com.example.first;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -112,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 t1=findViewById(R.id.not_user);
 
 
-                String query = "select * from samplespace1 where upper(Username)=upper('"+user.getText().toString()+"') and upper(Password) =upper('"+password.getText().toString()+"');";
+                String query = "select * from samplespace1 where upper(Username)=upper('"+user.getText().toString()+"') and Password ='"+password.getText().toString()+"';";
                 Statement s1;
                 try {
                     s1 = connection.createStatement();
@@ -155,6 +157,10 @@ public class MainActivity extends AppCompatActivity {
                                 } catch (InterruptedException e) {
                                     throw new RuntimeException(e);
                                 }
+                                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("username", user.getText().toString());
+                                editor.apply();
                                 //                                t1.setText(finalRes.getString(2));
                                 Intent signin= new Intent(MainActivity.this, SignIn.class);
                                 startActivity(signin);

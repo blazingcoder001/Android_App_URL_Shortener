@@ -27,7 +27,7 @@ public class SignIn extends AppCompatActivity {
         side.setScrimColor(ContextCompat.getColor(this,R.color.background));
         side.closeDrawer(GravityCompat.START);
         NavigationView navigationView= findViewById(R.id.nav);
-        navigationView.inflateMenu(R.menu.navigation_drawer);
+        //navigationView.inflateMenu(R.menu.navigation_drawer);
         MaterialToolbar topappbar= findViewById(R.id.topAppBar);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override

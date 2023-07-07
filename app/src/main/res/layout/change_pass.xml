@@ -191,6 +191,14 @@
 
                         </com.google.android.material.textfield.TextInputLayout>
 
+<!--                        <com.google.android.material.textfield.TextInputEditText-->
+<!--                            id="@+id/usernameinp"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="0dp"-->
+<!--                            android:visibility="gone"-->
+<!--                            android:inputType="text"-->
+<!--                            tools:ignore="MissingConstraints" />-->
+
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/button1"
@@ -200,7 +208,6 @@
                             android:layout_marginBottom="15dp"
                             android:backgroundTint="@color/onPrimary"
                             android:elevation="10dp"
-                            android:onClick="Btnclick"
                             android:shadowColor="@color/black"
                             android:text="Shorten"
                             app:layout_constraintBottom_toBottomOf="parent"
