@@ -209,7 +209,7 @@
                             android:backgroundTint="@color/onPrimary"
                             android:elevation="10dp"
                             android:shadowColor="@color/black"
-                            android:text="Shorten"
+                            android:text="Change Password"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

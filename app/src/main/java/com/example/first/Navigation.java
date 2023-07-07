@@ -38,12 +38,14 @@ public class Navigation extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id= item.getItemId();
+                Intent change;
                 if(id==R.id.Change){
-                    Intent change= new Intent(context,ChangePass.class);
+                    change= new Intent(context,ChangePass.class);
                     context.startActivity(change);
                 }
                 else if(id==R.id.out){
-
+                    change= new Intent(context,SignIn.class);
+                    context.startActivity(change);
                 }
                 else if(id==R.id.delete) {
 

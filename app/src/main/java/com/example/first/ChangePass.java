@@ -1,6 +1,7 @@
 package com.example.first;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -114,22 +116,57 @@ public class ChangePass extends AppCompatActivity {
                                 while (true) {
                                     try {
                                         if (!finalRes.next()) {
-//                            int k;
-//                            username=findViewById(R.id.usernameinp);
-//                            username.setText(userstr);
-//                            Executor parallel= new Executor(username,old_pas_ed, connection);
-//                            k=parallel.perform_execute();
-//                            if(k==2)
-//                            {
-//                                userl.setError("Username does not exist.");
-//                                passwordl.setError(null);
-//                            }
-//                            if(k!=2){
+
                                             old_pa.setError("Password is incorrect.");
-//                                userl.setError(null);
                                             break;
                                         }
-                                        old_pa.setError("balleballe!!!!");
+                                        Thread t2= new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Connect_SQL connectSql = new Connect_SQL("JP", "jrpjp#321",
+                                                        "129.21.136.123", "first", "3306");
+
+                                                String query2 = "UPDATE samplespace1 SET Password='" +new_pa_ed.getText().toString()+"' WHERE Username='"
+                                                        +userstr+"';";
+
+                                                Statement s2 = null;
+                                                try {
+                                                    s2 = connection.createStatement();
+                                                } catch (SQLException e) {
+                                                    throw new RuntimeException(e);
+                                                }
+                                                try {
+                                                    s2.executeUpdate(query2);
+
+                                                } catch (SQLException e) {
+                                                    throw new RuntimeException(e);
+                                                }
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Toast.makeText(context, "Password Successfully Changed!", Toast.LENGTH_SHORT).show();
+
+                                                    }
+                                                });
+
+
+                                            }
+                                        });
+                                        t2.start();
+                                        Thread t3= new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                try {
+                                                    t2.join();
+                                                    Intent change= new Intent(context,MainActivity.class);
+                                                    context.startActivity(change);
+                                                } catch (InterruptedException e) {
+                                                    throw new RuntimeException(e);
+                                                }
+
+                                            }
+                                        });
+                                        t3.start();
                                         break;
 
 
