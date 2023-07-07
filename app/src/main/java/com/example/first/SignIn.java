@@ -1,5 +1,6 @@
 package com.example.first;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -33,7 +34,8 @@ public class SignIn extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id= item.getItemId();
                 if(id==R.id.Change){
-
+                    Intent change= new Intent(SignIn.this,ChangePass.class);
+                    startActivity(change);
                 }
                 else if(id==R.id.out){
 

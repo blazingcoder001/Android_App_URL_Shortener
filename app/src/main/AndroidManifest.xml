@@ -28,6 +28,7 @@
         <activity android:name=".SignIn">
 
         </activity>
+        <activity android:name=".ChangePass"/>
 
     </application>
 
