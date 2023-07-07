@@ -1,11 +1,16 @@
 package com.example.first;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,6 +50,39 @@ public class ChangePass extends AppCompatActivity {
         Context context= ChangePass.this;
         Navigation navigation= new Navigation( context, side, navigationView,topappbar);
         navigation.navexecute();
+//        old_pas_ed.setOnTouchListener(new View.OnTouchListener() {
+//            @SuppressLint("ClickableViewAccessibility")
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                final int DRAWABLE_RIGHT =2;
+//                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+//                    if (motionEvent.getRawX() >= (old_pas_ed.getRight() - old_pas_ed.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+//                        // Toggle password visibility
+//                        if (old_pas_ed.getTransformationMethod() == PasswordTransformationMethod.getInstance()) {
+//                            old_pas_ed.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+//                                old_pas_ed.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.eye_off, 0);
+//                            }
+//                        } else {
+//                            old_pas_ed.setTransformationMethod(PasswordTransformationMethod.getInstance());
+//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+//                                old_pas_ed.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.eye, 0);
+//                            }
+//                        }
+//                        return true;
+//                    }
+//                }
+//                return false;
+//            }
+//
+//
+//        });
+        PasswordToggle toggle= new PasswordToggle(old_pas_ed);
+        toggle.execute();
+        PasswordToggle toggle1=new PasswordToggle(new_pa_ed);
+        toggle1.execute();
+        PasswordToggle toggle2=new PasswordToggle(new_pa_ret_ed);
+        toggle2.execute();
 
         new_pa_ret_ed.addTextChangedListener(new TextWatcher() {
             String s, out;

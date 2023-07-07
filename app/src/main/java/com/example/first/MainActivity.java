@@ -41,33 +41,35 @@ public class MainActivity extends AppCompatActivity {
         EditText password=passwordl.getEditText();
 //        ViewGroup.LayoutParams from= password.getLayoutParams();
 //        user.setLayoutParams(from);
-        password.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                final int DRAWABLE_RIGHT =2;
-                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    if (motionEvent.getRawX() >= (password.getRight() - password.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        // Toggle password visibility
-                        if (password.getTransformationMethod() == PasswordTransformationMethod.getInstance()) {
-                            password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                                password.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.eye_off, 0);
-                            }
-                        } else {
-                            password.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                                password.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.eye, 0);
-                            }
-                        }
-                        return true;
-                    }
-                }
-                return false;
-            }
-
-
-        });
+//        password.setOnTouchListener(new View.OnTouchListener() {
+//            @SuppressLint("ClickableViewAccessibility")
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                final int DRAWABLE_RIGHT =2;
+//                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+//                    if (motionEvent.getRawX() >= (password.getRight() - password.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+//                        // Toggle password visibility
+//                        if (password.getTransformationMethod() == PasswordTransformationMethod.getInstance()) {
+//                            password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+//                                password.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.eye_off, 0);
+//                            }
+//                        } else {
+//                            password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+//                                password.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.eye, 0);
+//                            }
+//                        }
+//                        return true;
+//                    }
+//                }
+//                return false;
+//            }
+//
+//
+//        });
+        PasswordToggle toggle= new PasswordToggle(password);
+        toggle.execute();
         t1=findViewById(R.id.not_user);
         t1.setOnClickListener(new View.OnClickListener() {
             @Override
