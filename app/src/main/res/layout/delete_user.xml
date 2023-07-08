@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/shiny_bgtot"
+    tools:context=".SignUp"
+    >
+
+
+
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/view_main"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardElevation="6dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#757575">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelinecard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="12dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.3" />
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <androidx.drawerlayout.widget.DrawerLayout
+                    android:id="@+id/drawer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.20109439" />
+
+                        <TextView
+                            android:id="@+id/message"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:text="Deleting your account is a permanent action and will remove all your data and access. Are you sure you want to proceed with deleting your account? This action cannot be undone. If you still wish to proceed, please confirm by clicking the 'Yes' button below."
+                            android:textColor="@color/white"
+                            app:layout_constraintBottom_toBottomOf="@id/guideline5"
+                            app:layout_constraintEnd_toEndOf="@id/guideline2"
+                            app:layout_constraintStart_toStartOf="@id/guideline1"
+                            app:layout_constraintTop_toBottomOf="@id/guideline3" />
+
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/button1"
+                            style="@style/Widget.Material3.Button.IconButton.Filled"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="15dp"
+                            android:backgroundTint="@color/onPrimary"
+                            android:elevation="10dp"
+                            android:shadowColor="@color/black"
+                            android:text="Yes"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/button2"
+                            app:layout_constraintStart_toStartOf="@id/guideline1"
+                            app:layout_constraintTop_toBottomOf="@+id/guideline5"
+                            app:rippleColor="@color/blue" />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/button2"
+                            style="@style/Widget.Material3.Button.IconButton.Filled"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="15dp"
+                            android:backgroundTint="@color/onPrimary"
+                            android:elevation="10dp"
+                            android:shadowColor="@color/black"
+                            android:text="No"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@id/guideline2"
+                            app:layout_constraintStart_toEndOf="@id/button1"
+                            app:layout_constraintTop_toBottomOf="@+id/guideline5"
+                            app:rippleColor="@color/blue" />
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.04" />
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.94160587" />
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.40109439"  />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <com.google.android.material.navigation.NavigationView
+                        android:id="@+id/nav"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="start"
+                        android:elevation="12dp"
+                        app:drawerLayoutCornerSize="5dp"
+                        app:headerLayout="@layout/header_navigation_drawer"
+                        app:menu="@menu/navigation_drawer" />
+
+                </androidx.drawerlayout.widget.DrawerLayout>
+                <com.google.android.material.appbar.AppBarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.appbar.MaterialToolbar
+                        android:id="@+id/topAppBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        app:title=""
+                        app:menu="@menu/top_app_bar"
+                        app:navigationIcon="@drawable/ham_18" />
+
+                </com.google.android.material.appbar.AppBarLayout>
+
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+
+
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
