@@ -38,17 +38,18 @@ public class Navigation extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id= item.getItemId();
-                Intent change;
+                Intent intent;
                 if(id==R.id.Change){
-                    change= new Intent(context,ChangePass.class);
-                    context.startActivity(change);
+                    intent= new Intent(context,ChangePass.class);
+                    context.startActivity(intent);
                 }
                 else if(id==R.id.out){
-                    change= new Intent(context,SignIn.class);
-                    context.startActivity(change);
+                    intent= new Intent(context,SignIn.class);
+                    context.startActivity(intent);
                 }
                 else if(id==R.id.delete) {
-
+                    intent= new Intent(context,Delete.class);
+                    context.startActivity(intent);
                 }
                 side.closeDrawer(GravityCompat.START);
                 topappbar.setTitle(null);

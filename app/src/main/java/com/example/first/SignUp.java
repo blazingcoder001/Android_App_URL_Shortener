@@ -40,7 +40,7 @@ public class SignUp extends AppCompatActivity {
         EditText password= passwordl[0].getEditText();
         TextInputLayout retypepasswordl=findViewById(R.id.retypeinp);
         EditText retypepassword=retypepasswordl.getEditText();
-        Na
+
 
 //        password.setOnTouchListener(new View.OnTouchListener() {
 //            @SuppressLint("ClickableViewAccessibility")

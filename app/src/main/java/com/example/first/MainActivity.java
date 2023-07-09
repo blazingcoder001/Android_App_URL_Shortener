@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                                         int k;
                                         Executor parallel= new Executor(user,password, connection);
                                         k=parallel.perform_execute();
-                                        if(k==2)
+                                        if(k==0)
                                         {
                                             userl.setError("Username does not exist.");
                                             passwordl.setError(null);

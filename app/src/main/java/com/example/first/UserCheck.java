@@ -27,15 +27,17 @@ public class UserCheck {
         ResultSet res;
         s1 = connection.createStatement();
         res = s1.executeQuery(query1);
-        if (res.next())
+        if (!res.next())
+            return 0;
+        else
             return 1;
-        else {
-            ResultSet res2;
-            res2 = s1.executeQuery(query2);
-            if (res2.next())
-                return 2;
-            else
-                return 0;
-        }
+//        else {
+//            ResultSet res2;
+//            res2 = s1.executeQuery(query2);
+//            if (res2.next())
+//                return 2;
+//            else
+//                return 0;
+//        }
     }
 }

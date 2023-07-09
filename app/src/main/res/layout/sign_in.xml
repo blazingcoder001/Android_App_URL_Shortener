@@ -8,19 +8,6 @@
     tools:context=".SignUp"
     >
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.04" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.94" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
@@ -79,16 +66,32 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.10" />
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.90" />
+
 
                         <TextView
                             android:id="@+id/to_shorten"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Enter the URL \nto be shortened:"
+                            app:layout_constraintHorizontal_chainStyle="spread"
+                            android:layout_marginLeft="20dp"
                             android:textColor="@color/white"
                             app:layout_constraintBottom_toBottomOf="@id/to_shorten_inp"
                             app:layout_constraintEnd_toStartOf="@id/to_shorten_inp"
-                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/guideline1"
                             app:layout_constraintTop_toTopOf="@id/to_shorten_inp" />
 
 
@@ -101,7 +104,7 @@
                             android:layout_marginBottom="15dp"
                             app:hintEnabled="false"
                             app:layout_constraintBottom_toTopOf="@id/wish"
-                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintEnd_toEndOf="@id/guideline2"
                             app:layout_constraintHorizontal_bias="0.497"
                             app:layout_constraintStart_toEndOf="@id/to_shorten"
                             app:layout_constraintTop_toTopOf="parent"
@@ -123,10 +126,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Enter the desired \nback-half:"
+                            app:layout_constraintHorizontal_chainStyle="spread"
                             android:textColor="@color/white"
+                            android:layout_marginLeft="20dp"
                             app:layout_constraintBottom_toBottomOf="@id/wish_inp"
                             app:layout_constraintEnd_toStartOf="@id/wish_inp"
-                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/guideline1"
                             app:layout_constraintTop_toTopOf="@id/wish_inp" />
 
                         <com.google.android.material.textfield.TextInputLayout
@@ -138,7 +143,7 @@
                             android:layout_marginBottom="15dp"
                             app:hintEnabled="false"
                             app:layout_constraintBottom_toTopOf="@id/button1"
-                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintEnd_toEndOf="@id/guideline2"
                             app:layout_constraintHorizontal_bias="0.497"
                             app:layout_constraintStart_toEndOf="@id/wish"
                             app:layout_constraintTop_toBottomOf="@id/to_shorten_inp"
