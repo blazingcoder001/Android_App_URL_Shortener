@@ -72,65 +72,65 @@ public class SignUp extends AppCompatActivity {
         PasswordToggle toggle= new PasswordToggle(password);
         toggle.execute();
 
-//        retypepassword.addTextChangedListener(new TextWatcher() {
-//
-//            String s;
-//            check_retype c=new check_retype();
-//
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                //do nothing
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                s = passwordl[0].getEditText().getText().toString();
-//                b[0] =c.check(s, charSequence.toString());
-//                if(b[0] ==false) {
-//                    out[0] ="Password does not match!";
-//                    retypepasswordl.setError(out[0]);
-//                }
-//                else{
-//
-//                    retypepasswordl.setError(null);
-//                    out[0] =null;
-//
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//                //do nothing
-//            }
-//        });
+        retypepassword.addTextChangedListener(new TextWatcher() {
+
+            String s;
+            check_retype c=new check_retype();
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //do nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                s = passwordl[0].getEditText().getText().toString();
+                b[0] =c.check(s, charSequence.toString());
+                if(b[0] ==false) {
+                    out[0] ="Password does not match!";
+                    retypepasswordl.setError(out[0]);
+                }
+                else{
+
+                    retypepasswordl.setError(null);
+                    out[0] =null;
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                //do nothing
+            }
+        });
         PasswordToggle toggle1= new PasswordToggle(retypepassword);
         toggle1.execute();
 
-        retypepassword.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                final int DRAWABLE_RIGHT =2;
-                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    if (motionEvent.getRawX() >= (retypepassword.getRight() - retypepassword.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        // Toggle password visibility
-                        if (retypepassword.getTransformationMethod() == PasswordTransformationMethod.getInstance() && out[0] ==null) {
-                            retypepassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                                retypepassword.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.eye_off, 0);
-                            }
-                        } else if(out[0] ==null) {
-                            retypepassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                                retypepassword.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.eye, 0);
-                            }
-                        }
-                        return true;
-                    }
-                }
-                return false;
-            }
-        });
+//        retypepassword.setOnTouchListener(new View.OnTouchListener() {
+//            @SuppressLint("ClickableViewAccessibility")
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                final int DRAWABLE_RIGHT =2;
+//                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+//                    if (motionEvent.getRawX() >= (retypepassword.getRight() - retypepassword.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+//                        // Toggle password visibility
+//                        if (retypepassword.getTransformationMethod() == PasswordTransformationMethod.getInstance() && out[0] ==null) {
+//                            retypepassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+//                                retypepassword.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.eye_off, 0);
+//                            }
+//                        } else if(out[0] ==null) {
+//                            retypepassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+//                                retypepassword.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.eye, 0);
+//                            }
+//                        }
+//                        return true;
+//                    }
+//                }
+//                return false;
+//            }
+//        });
 
         t1=findViewById(R.id.user);
         t1.setOnClickListener(new View.OnClickListener() {

@@ -44,7 +44,7 @@ public class Navigation extends AppCompatActivity {
                     context.startActivity(intent);
                 }
                 else if(id==R.id.out){
-                    intent= new Intent(context,SignIn.class);
+                    intent= new Intent(context,MainActivity.class);
                     context.startActivity(intent);
                 }
                 else if(id==R.id.delete) {

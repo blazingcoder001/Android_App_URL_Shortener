@@ -16,6 +16,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -52,7 +53,10 @@ public class Delete extends AppCompatActivity {
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
-                        String query2 = "DELETE FROM samplespace1 WHERE upper(Username)=upper('"+userstr+"')";
+                        String query1 = "DELETE FROM samplespace1 WHERE upper(Username)=upper('"+userstr+"')";
+                        String query2="DELETE FROM samplespace2";
+                        String query3="SET @Ind := 0;";
+                        String query4="INSERT INTO samplespace2 SELECT (@Ind:=@Ind+1) AS Ind, Username, Password, firstname, lastname, Url_Full FROM samplespace1 ORDER BY Ind ASC;";
 
                         Statement s2 = null;
                         try {
@@ -61,7 +65,12 @@ public class Delete extends AppCompatActivity {
                             throw new RuntimeException(e);
                         }
                         try {
+                            s2.executeUpdate(query1);
                             s2.executeUpdate(query2);
+                            s2.executeUpdate(query3);
+                            s2.executeUpdate(query4);
+
+
 
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
