@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.first.user.User;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.sql.Connection;
@@ -100,20 +101,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                Connect_SQL connectSql = new Connect_SQL("JP", "jrpjp#321",
-                        "129.21.136.123", "first", "3306");
-                try {
-                    connection = connectSql.Connection_get();
-                } catch (ClassNotFoundException e) {
-                    throw new RuntimeException(e);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
+//                Connect_SQL connectSql = new Connect_SQL("JP", "jrpjp#321",
+//                        "129.21.136.123", "first", "3306");
+//                try {
+//                    connection = connectSql.Connection_get();
+//                } catch (ClassNotFoundException e) {
+//                    throw new RuntimeException(e);
+//                } catch (SQLException e) {
+//                    throw new RuntimeException(e);
+//                }
                 userl=findViewById(R.id.username);
                 user=userl.getEditText();
                 passwordl=findViewById(R.id.password);
                 password=passwordl.getEditText();
                 t1=findViewById(R.id.not_user);
+
 
 
                 String query = "select * from samplespace1 where upper(Username)=upper('"+user.getText().toString()+"') and Password ='"+password.getText().toString()+"';";

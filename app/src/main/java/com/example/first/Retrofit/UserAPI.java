@@ -15,7 +15,7 @@ public interface UserAPI {
     @POST("/user/get-shortened")
     Call<String> shortened(@Body String Original, String short_pref);
     @POST("/user/signup")
-    Call<User> insert_user(@Body User user);
+    Call<Integer> insert_user(@Body User user);
     @POST("/user/login-check")
     Call<Integer> check_login(@Body String username, String password);
     @POST("/user/delete-user")

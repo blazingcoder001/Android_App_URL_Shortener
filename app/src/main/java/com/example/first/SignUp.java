@@ -13,10 +13,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.first.Retrofit.Service;
+import com.example.first.Retrofit.UserAPI;
+import com.example.first.user.User;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.sql.Connection;
@@ -24,10 +28,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.concurrent.CountDownLatch;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class SignUp extends AppCompatActivity {
 
     Connection connection;
     final  boolean[] b = new boolean[1];
+    Service service= new Service();
+    UserAPI userAPI=service.getRetrofit().create(UserAPI.class);
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -42,33 +55,7 @@ public class SignUp extends AppCompatActivity {
         EditText retypepassword=retypepasswordl.getEditText();
 
 
-//        password.setOnTouchListener(new View.OnTouchListener() {
-//            @SuppressLint("ClickableViewAccessibility")
-//            @Override
-//            public boolean onTouch(View view, MotionEvent motionEvent) {
-//                final int DRAWABLE_RIGHT =2;
-//                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-//                    if (motionEvent.getRawX() >= (password.getRight() - password.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-//                        // Toggle password visibility
-//                        if (password.getTransformationMethod() == PasswordTransformationMethod.getInstance()) {
-//                            password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-//                                password.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.eye_off, 0);
-//                            }
-//                        } else {
-//                            password.setTransformationMethod(PasswordTransformationMethod.getInstance());
-//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-//                                password.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.eye, 0);
-//                            }
-//                        }
-//                        return true;
-//                    }
-//                }
-//                return false;
-//            }
-//
-//
-//        });
+
         PasswordToggle toggle= new PasswordToggle(password);
         toggle.execute();
 
@@ -106,31 +93,7 @@ public class SignUp extends AppCompatActivity {
         PasswordToggle toggle1= new PasswordToggle(retypepassword);
         toggle1.execute();
 
-//        retypepassword.setOnTouchListener(new View.OnTouchListener() {
-//            @SuppressLint("ClickableViewAccessibility")
-//            @Override
-//            public boolean onTouch(View view, MotionEvent motionEvent) {
-//                final int DRAWABLE_RIGHT =2;
-//                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-//                    if (motionEvent.getRawX() >= (retypepassword.getRight() - retypepassword.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-//                        // Toggle password visibility
-//                        if (retypepassword.getTransformationMethod() == PasswordTransformationMethod.getInstance() && out[0] ==null) {
-//                            retypepassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-//                                retypepassword.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.eye_off, 0);
-//                            }
-//                        } else if(out[0] ==null) {
-//                            retypepassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-//                                retypepassword.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.eye, 0);
-//                            }
-//                        }
-//                        return true;
-//                    }
-//                }
-//                return false;
-//            }
-//        });
+
 
         t1=findViewById(R.id.user);
         t1.setOnClickListener(new View.OnClickListener() {
@@ -162,15 +125,15 @@ public class SignUp extends AppCompatActivity {
 
 
 
-                Connect_SQL connectSql = new Connect_SQL("JP", "jrpjp#321",
-                        "129.21.136.123", "first", "3306");
-                try {
-                    connection = connectSql.Connection_get();
-                } catch (ClassNotFoundException e) {
-                    throw new RuntimeException(e);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
+//                Connect_SQL connectSql = new Connect_SQL("JP", "jrpjp#321",
+//                        "129.21.136.123", "first", "3306");
+//                try {
+//                    connection = connectSql.Connection_get();
+//                } catch (ClassNotFoundException e) {
+//                    throw new RuntimeException(e);
+//                } catch (SQLException e) {
+//                    throw new RuntimeException(e);
+//                }
                 userl = findViewById(R.id.usernameinp);
                 user = userl.getEditText();
                 passwordl = findViewById(R.id.passwordinp);
@@ -179,7 +142,29 @@ public class SignUp extends AppCompatActivity {
                 firstinp = firstinpl.getEditText();
                 lastinpl = findViewById(R.id.lastinp);
                 lastinp = lastinpl.getEditText();
-                String query1 = "select * from samplespace1 where upper(Username)=upper('" + user.getText().toString() + "');";
+                //API Code*****
+                User userinfo= new User();
+                userinfo.setUsername(user.getText().toString());
+                userinfo.setPassword((user.getText().toString()));
+                userinfo.setFirstname(firstinp.getText().toString());
+                userinfo.setLastname(firstinp.getText().toString());
+                userinfo.setUrl_Full(null);
+                userAPI.insert_user(userinfo)
+                .enqueue(new Callback<Integer>() {
+                             @Override
+                             public void onResponse(Call<Integer> call, Response<Integer> response) {
+                                 Toast.makeText(SignUp.this, "Account created successfully!", Toast.LENGTH_SHORT).show();
+                             }
+
+                             @Override
+                             public void onFailure(Call<Integer> call, Throwable t) {
+                                 Toast.makeText(SignUp.this, "Account Cannot be created!", Toast.LENGTH_SHORT).show();
+                                 Logger.getLogger(getClass().toString()).log(Level.SEVERE,"Error occured",t);
+                             }
+                         });
+                        //API code ends
+
+                        String query1 = "select * from samplespace1 where upper(Username)=upper('" + user.getText().toString() + "');";
                 Statement s1;
                 int ind = 0;
                 try {

@@ -11,7 +11,7 @@ public class Service {
     }
 
     Retrofit retrofit;
-    Service(){
+    public Service(){
         makeService();
     }
 
