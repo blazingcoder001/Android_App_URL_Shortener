@@ -15,12 +15,12 @@ public interface UserAPI {
     @POST("/user/get-shortened")
     Call<String> shortened(@Body String Original, String short_pref);
     @POST("/user/signup")
-    Call<Integer> insert_user(@Body User user);
+    Call<Boolean> insert_user(@Body User user);
     @POST("/user/login-check")
-    Call<Integer> check_login(@Body String username, String password);
+    Call<Boolean> check_login(@Body String username);
     @POST("/user/delete-user")
-    Call<Integer> delete(@Body String username, String password);
+    Call<Boolean> delete(@Body String username);
     @POST("/user/change-password")
-    Call<Integer> change_password(@Body String username, String old_pas, String new_pas);
+    Call<Boolean> change_password(@Body String username, String old_pas, String new_pas);
 
 }
