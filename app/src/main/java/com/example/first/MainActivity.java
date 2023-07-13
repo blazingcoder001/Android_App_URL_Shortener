@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.first.Retrofit.Service;
 import com.example.first.Retrofit.UserAPI;
@@ -29,6 +30,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -175,7 +178,8 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Integer> call, Throwable t) {
-
+                        Toast.makeText(MainActivity.this, "Account Cannot be created!", Toast.LENGTH_SHORT).show();
+                        Logger.getLogger(getClass().toString()).log(Level.SEVERE,"Error occured",t);
                     }
                 });
 

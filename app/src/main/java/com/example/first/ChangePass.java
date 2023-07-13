@@ -20,19 +20,32 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.first.Retrofit.Service;
+import com.example.first.Retrofit.UserAPI;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.JsonObject;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ChangePass extends AppCompatActivity {
     Connection connection;
+    Service service= new Service();
 
+    UserAPI userAPI=service.getRetrofit().create(UserAPI.class);
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,98 +137,152 @@ public class ChangePass extends AppCompatActivity {
                     public void run() {
                         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                         userstr = sharedPreferences.getString("username", null);
-                        Connect_SQL connectSql = new Connect_SQL("JP", "jrpjp#321",
-                                "129.21.136.123", "first", "3306");
-                        try {
-                            connection = connectSql.Connection_get();
-                        } catch (ClassNotFoundException e) {
-                            throw new RuntimeException(e);
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        }
-                        String query = "select * from samplespace1 where upper(Username)=upper('" + userstr + "') and Password ='" + old_pas_ed.getText().toString() + "';";
-                        Statement s1;
-                        try {
-                            s1 = connection.createStatement();
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        }
-                        ResultSet res = null;
-                        try {
-                            res = s1.executeQuery(query);
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        }
-
-                        ResultSet finalRes = res;
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                while (true) {
-                                    try {
-                                        if (!finalRes.next()) {
-
-                                            old_pa.setError("Password is incorrect.");
-                                            break;
-                                        }
-                                        Thread t2= new Thread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                Connect_SQL connectSql = new Connect_SQL("JP", "jrpjp#321",
-                                                        "129.21.136.123", "first", "3306");
-
-                                                String query2 = "UPDATE samplespace1 SET Password='" +new_pa_ed.getText().toString()+"' WHERE Username='"
-                                                        +userstr+"';";
-
-                                                Statement s2 = null;
-                                                try {
-                                                    s2 = connection.createStatement();
-                                                } catch (SQLException e) {
-                                                    throw new RuntimeException(e);
+                        JsonObject object= new JsonObject();
+                        object.addProperty("username",userstr);
+                        object.addProperty("old_password",old_pas_ed.getText().toString());
+                        object.addProperty("new_password",new_pa_ed.getText().toString());
+                        MediaType mediaType= MediaType.parse("application/json");
+                        RequestBody requestBody=RequestBody.create(mediaType,object.toString());
+                        userAPI.change_password(requestBody)
+                                .enqueue(new Callback<Integer>() {
+                                    @Override
+                                    public void onResponse(Call<Integer> call, Response<Integer> response) {
+                                        if(response.body().intValue()==1){
+                                            Thread t2= new Thread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    runOnUiThread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            Toast.makeText(context, "Password Successfully Changed!", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
                                                 }
-                                                try {
-                                                    s2.executeUpdate(query2);
-
-                                                } catch (SQLException e) {
-                                                    throw new RuntimeException(e);
-                                                }
-                                                runOnUiThread(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        Toast.makeText(context, "Password Successfully Changed!", Toast.LENGTH_SHORT).show();
-
+                                            });
+                                            t2.start();
+                                            Thread t3= new Thread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    try {
+                                                        t2.join();
+                                                    } catch (InterruptedException e) {
+                                                        throw new RuntimeException(e);
                                                     }
-                                                });
-
-
-                                            }
-                                        });
-                                        t2.start();
-                                        Thread t3= new Thread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                try {
-                                                    t2.join();
                                                     Intent change= new Intent(context,MainActivity.class);
                                                     context.startActivity(change);
-                                                } catch (InterruptedException e) {
-                                                    throw new RuntimeException(e);
                                                 }
+                                            });
+                                            t3.start();
 
-                                            }
-                                        });
-                                        t3.start();
-                                        break;
-
-
-                                    } catch (SQLException e) {
-                                        throw new RuntimeException(e);
+                                        }
+                                        else if (response.body().intValue()==2){
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    old_pa.setError("Password is incorrect.");
+                                                }
+                                            });
+                                        }
                                     }
 
-
-                                }
-                            }
-                        });
+                                    @Override
+                                    public void onFailure(Call<Integer> call, Throwable t) {
+                                        Toast.makeText(ChangePass.this, "Account Cannot be created!", Toast.LENGTH_SHORT).show();
+                                        Logger.getLogger(getClass().toString()).log(Level.SEVERE,"Error occured",t);
+                                    }
+                                });
+//                        Connect_SQL connectSql = new Connect_SQL("JP", "jrpjp#321",
+//                                "129.21.136.123", "first", "3306");
+//                        try {
+//                            connection = connectSql.Connection_get();
+//                        } catch (ClassNotFoundException e) {
+//                            throw new RuntimeException(e);
+//                        } catch (SQLException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                        String query = "select * from samplespace1 where upper(Username)=upper('" + userstr + "') and Password ='" + old_pas_ed.getText().toString() + "';";
+//                        Statement s1;
+//                        try {
+//                            s1 = connection.createStatement();
+//                        } catch (SQLException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                        ResultSet res = null;
+//                        try {
+//                            res = s1.executeQuery(query);
+//                        } catch (SQLException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//
+//                        ResultSet finalRes = res;
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                while (true) {
+//                                    try {
+//                                        if (!finalRes.next()) {
+//
+//                                            old_pa.setError("Password is incorrect.");
+//                                            break;
+//                                        }
+//                                        Thread t2= new Thread(new Runnable() {
+//                                            @Override
+//                                            public void run() {
+//                                                Connect_SQL connectSql = new Connect_SQL("JP", "jrpjp#321",
+//                                                        "129.21.136.123", "first", "3306");
+//
+//                                                String query2 = "UPDATE samplespace1 SET Password='" +new_pa_ed.getText().toString()+"' WHERE Username='"
+//                                                        +userstr+"';";
+//
+//                                                Statement s2 = null;
+//                                                try {
+//                                                    s2 = connection.createStatement();
+//                                                } catch (SQLException e) {
+//                                                    throw new RuntimeException(e);
+//                                                }
+//                                                try {
+//                                                    s2.executeUpdate(query2);
+//
+//                                                } catch (SQLException e) {
+//                                                    throw new RuntimeException(e);
+//                                                }
+//                                                runOnUiThread(new Runnable() {
+//                                                    @Override
+//                                                    public void run() {
+//                                                        Toast.makeText(context, "Password Successfully Changed!", Toast.LENGTH_SHORT).show();
+//
+//                                                    }
+//                                                });
+//
+//
+//                                            }
+//                                        });
+//                                        t2.start();
+//                                        Thread t3= new Thread(new Runnable() {
+//                                            @Override
+//                                            public void run() {
+//                                                try {
+//                                                    t2.join();
+//                                                    Intent change= new Intent(context,MainActivity.class);
+//                                                    context.startActivity(change);
+//                                                } catch (InterruptedException e) {
+//                                                    throw new RuntimeException(e);
+//                                                }
+//
+//                                            }
+//                                        });
+//                                        t3.start();
+//                                        break;
+//
+//
+//                                    } catch (SQLException e) {
+//                                        throw new RuntimeException(e);
+//                                    }
+//
+//
+//                                }
+//                            }
+//                        });
                     }
                 });
                 t.start();

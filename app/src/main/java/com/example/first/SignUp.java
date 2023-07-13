@@ -181,7 +181,7 @@ public class SignUp extends AppCompatActivity {
                                      runOnUiThread(new Runnable() {
                                          @Override
                                          public void run() {
-                                             userl.setError("User already exists. Please Login.");
+                                             userl.setError("Username already exists. Please Login.");
                                          }
                                      });
                                  }
