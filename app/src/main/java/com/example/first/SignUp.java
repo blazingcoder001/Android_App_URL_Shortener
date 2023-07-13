@@ -153,8 +153,30 @@ public class SignUp extends AppCompatActivity {
                 .enqueue(new Callback<Boolean>() {
                              @Override
                              public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                                 if(response.body()==true)
-                                     Toast.makeText(SignUp.this, "Account created successfully!", Toast.LENGTH_SHORT).show();
+                                 if(response.body()==true) {
+                                     Thread t2= new Thread(new Runnable() {
+                                         @Override
+                                         public void run() {
+                                             runOnUiThread(new Runnable() {
+                                                 @Override
+                                                 public void run() {
+                                                     Toast.makeText(SignUp.this, "Account created successfully!", Toast.LENGTH_SHORT).show();
+                                                 }
+                                             });
+                                         }
+                                     });
+                                     t2.start();
+                                     try {
+                                         t2.join();
+                                         Intent login=new Intent(SignUp.this, MainActivity.class);
+                                         startActivity(login);
+
+                                     } catch (InterruptedException e) {
+                                         throw new RuntimeException(e);
+                                     }
+
+
+                                 }
                                  else {
                                      runOnUiThread(new Runnable() {
                                          @Override
