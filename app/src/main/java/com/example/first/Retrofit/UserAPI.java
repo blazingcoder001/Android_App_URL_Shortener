@@ -4,6 +4,7 @@ import com.example.first.user.User;
 
 import java.util.List;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -17,7 +18,7 @@ public interface UserAPI {
     @POST("/user/signup")
     Call<Boolean> insert_user(@Body User user);
     @POST("/user/login-check")
-    Call<Boolean> check_login(@Body String username);
+    Call<Integer> check_login(@Body RequestBody requestBody);
     @POST("/user/delete-user")
     Call<Boolean> delete(@Body String username);
     @POST("/user/change-password")
