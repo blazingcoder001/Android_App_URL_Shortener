@@ -22,6 +22,6 @@ public interface UserAPI {
     @POST("/user/delete-user")
     Call<Boolean> delete(@Body String username);
     @POST("/user/change-password")
-    Call<Integer> change_password(RequestBody requestBody);
+    Call<Integer> change_password(@Body RequestBody requestBody);
 
 }

@@ -227,10 +227,10 @@ public class MainActivity extends AppCompatActivity {
 //                                } catch (InterruptedException e) {
 //                                    throw new RuntimeException(e);
 //                                }
-//                                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-//                                SharedPreferences.Editor editor = sharedPreferences.edit();
-//                                editor.putString("username", user.getText().toString());
-//                                editor.apply();
+                                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("username", user.getText().toString());
+                                editor.apply();
 //                                //                                t1.setText(finalRes.getString(2));
 //                                Intent signin= new Intent(MainActivity.this, SignIn.class);
 //                                startActivity(signin);
