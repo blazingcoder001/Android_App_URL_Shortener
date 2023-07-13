@@ -1,31 +1,24 @@
 package com.example.first.user;
 
 public class User {
-    int ind;
-    String Username,Password,firstname,lastname,Url_Full;
+    String username;
+    String password,firstname,lastname,url_Full;
 
-    public int getInd() {
-        return ind;
-    }
-
-    public void setInd(int ind) {
-        this.ind = ind;
-    }
 
     public String getUsername() {
-        return Username;
+        return username;
     }
 
     public void setUsername(String username) {
-        Username = username;
+        this.username = username;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 
     public String getFirstname() {
@@ -45,10 +38,10 @@ public class User {
     }
 
     public String getUrl_Full() {
-        return Url_Full;
+        return url_Full;
     }
 
     public void setUrl_Full(String url_Full) {
-        Url_Full = url_Full;
+        this.url_Full = url_Full;
     }
 }

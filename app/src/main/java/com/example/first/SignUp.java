@@ -145,128 +145,139 @@ public class SignUp extends AppCompatActivity {
                 //API Code*****
                 User userinfo= new User();
                 userinfo.setUsername(user.getText().toString());
-                userinfo.setPassword((user.getText().toString()));
+                userinfo.setPassword((password.getText().toString()));
                 userinfo.setFirstname(firstinp.getText().toString());
-                userinfo.setLastname(firstinp.getText().toString());
+                userinfo.setLastname(lastinp.getText().toString());
                 userinfo.setUrl_Full(null);
                 userAPI.insert_user(userinfo)
-                .enqueue(new Callback<Integer>() {
+                .enqueue(new Callback<Boolean>() {
                              @Override
-                             public void onResponse(Call<Integer> call, Response<Integer> response) {
-                                 Toast.makeText(SignUp.this, "Account created successfully!", Toast.LENGTH_SHORT).show();
+                             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                                 if(response.body()==true)
+                                     Toast.makeText(SignUp.this, "Account created successfully!", Toast.LENGTH_SHORT).show();
+                                 else {
+                                     runOnUiThread(new Runnable() {
+                                         @Override
+                                         public void run() {
+                                             userl.setError("User already exists. Please Login.");
+                                         }
+                                     });
+                                 }
+
+
                              }
 
                              @Override
-                             public void onFailure(Call<Integer> call, Throwable t) {
+                             public void onFailure(Call<Boolean> call, Throwable t) {
                                  Toast.makeText(SignUp.this, "Account Cannot be created!", Toast.LENGTH_SHORT).show();
                                  Logger.getLogger(getClass().toString()).log(Level.SEVERE,"Error occured",t);
                              }
                          });
                         //API code ends
 
-                        String query1 = "select * from samplespace1 where upper(Username)=upper('" + user.getText().toString() + "');";
-                Statement s1;
-                int ind = 0;
-                try {
-                    s1 = connection.createStatement();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-                ResultSet res = null;
-                try {
-                    res = s1.executeQuery(query1);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-
-                ResultSet finalRes = res;
-                CountDownLatch count=new CountDownLatch(1);
-                runOnUiThread(new Runnable() {
-
-                    @Override
-                    public void run() {
-
-                        while (true) {
-                            try {
-                                if (!finalRes.next()) {
-                                    break;
-                                }
-                            } catch (SQLException e) {
-                                throw new RuntimeException(e);
-                            }
-                            try {
-                                z=1;
-
-                            } catch (Exception e) {
-                                throw new RuntimeException(e);
-                            }
-
-                        }
-                        count.countDown();
-                    }
-
-                });
-                try {
-                    count.await();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                if (z== 0 && b[0]==true) {
-                    String ind_sel = "select max(Ind) from samplespace1;";
-                    Statement s3;
-                    try {
-                        s3 = connection.createStatement();
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                    ResultSet res2;
-                    try {
-                        res2 = s3.executeQuery(ind_sel);
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                    try {
-                        if(res2.next()) {
-                            try {
-                                ind=res2.getInt(1);
-                                ind++;
-                            } catch (SQLException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-
-
-                    String query2 = "INSERT INTO samplespace1 (Ind, Username, Password, firstname, lastname) VALUES" +
-                            " (" +ind+ ",'" + user.getText().toString() + "','" + password.getText().toString() + "','" +
-                            firstinp.getText().toString() + "','" + lastinp.getText().toString() + "');";
-
-                    Statement s2 = null;
-                    try {
-                        s2 = connection.createStatement();
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                    try {
-                        s2.executeUpdate(query2);
-
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                    Intent login=new Intent(SignUp.this, MainActivity.class);
-                    startActivity(login);
-
-                }
-                else if (z!=0){
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            userl.setError("User already exists. Please Login.");
-                        }
-                    });
-                }
+//                        String query1 = "select * from samplespace1 where upper(Username)=upper('" + user.getText().toString() + "');";
+//                Statement s1;
+//                int ind = 0;
+//                try {
+//                    s1 = connection.createStatement();
+//                } catch (SQLException e) {
+//                    throw new RuntimeException(e);
+//                }
+//                ResultSet res = null;
+//                try {
+//                    res = s1.executeQuery(query1);
+//                } catch (SQLException e) {
+//                    throw new RuntimeException(e);
+//                }
+//
+//                ResultSet finalRes = res;
+//                CountDownLatch count=new CountDownLatch(1);
+//                runOnUiThread(new Runnable() {
+//
+//                    @Override
+//                    public void run() {
+//
+//                        while (true) {
+//                            try {
+//                                if (!finalRes.next()) {
+//                                    break;
+//                                }
+//                            } catch (SQLException e) {
+//                                throw new RuntimeException(e);
+//                            }
+//                            try {
+//                                z=1;
+//
+//                            } catch (Exception e) {
+//                                throw new RuntimeException(e);
+//                            }
+//
+//                        }
+//                        count.countDown();
+//                    }
+//
+//                });
+//                try {
+//                    count.await();
+//                } catch (InterruptedException e) {
+//                    throw new RuntimeException(e);
+//                }
+//                if (z== 0 && b[0]==true) {
+//                    String ind_sel = "select max(Ind) from samplespace1;";
+//                    Statement s3;
+//                    try {
+//                        s3 = connection.createStatement();
+//                    } catch (SQLException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//                    ResultSet res2;
+//                    try {
+//                        res2 = s3.executeQuery(ind_sel);
+//                    } catch (SQLException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//                    try {
+//                        if(res2.next()) {
+//                            try {
+//                                ind=res2.getInt(1);
+//                                ind++;
+//                            } catch (SQLException e) {
+//                                throw new RuntimeException(e);
+//                            }
+//                        }
+//                    } catch (SQLException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//
+//
+//                    String query2 = "INSERT INTO samplespace1 (Ind, Username, Password, firstname, lastname) VALUES" +
+//                            " (" +ind+ ",'" + user.getText().toString() + "','" + password.getText().toString() + "','" +
+//                            firstinp.getText().toString() + "','" + lastinp.getText().toString() + "');";
+//
+//                    Statement s2 = null;
+//                    try {
+//                        s2 = connection.createStatement();
+//                    } catch (SQLException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//                    try {
+//                        s2.executeUpdate(query2);
+//
+//                    } catch (SQLException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//                    Intent login=new Intent(SignUp.this, MainActivity.class);
+//                    startActivity(login);
+//
+//                }
+//                else if (z!=0){
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            userl.setError("User already exists. Please Login.");
+//                        }
+//                    });
+//                }
             }
         });
         t.start();

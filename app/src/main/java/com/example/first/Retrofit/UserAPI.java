@@ -13,7 +13,7 @@ public interface UserAPI {
 //    @GET("/user/get-shortened")
 //    Call<String> shortened();
     @POST("/user/get-shortened")
-    Call<String> shortened(@Body String Original, String short_pref);
+    Call<String> shortened(@Body String Original, @Body String short_pref);
     @POST("/user/signup")
     Call<Boolean> insert_user(@Body User user);
     @POST("/user/login-check")
@@ -21,6 +21,6 @@ public interface UserAPI {
     @POST("/user/delete-user")
     Call<Boolean> delete(@Body String username);
     @POST("/user/change-password")
-    Call<Boolean> change_password(@Body String username, String old_pas, String new_pas);
+    Call<Boolean> change_password(@Body String username, @Body String old_pas, @Body String new_pas);
 
 }
