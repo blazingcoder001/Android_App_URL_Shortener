@@ -20,7 +20,7 @@ public interface UserAPI {
     @POST("/user/login-check")
     Call<Integer> check_login(@Body RequestBody requestBody);
     @POST("/user/delete-user")
-    Call<Boolean> delete(@Body String username);
+    Call<Boolean> delete(@Body RequestBody requestBody);
     @POST("/user/change-password")
     Call<Integer> change_password(@Body RequestBody requestBody);
 

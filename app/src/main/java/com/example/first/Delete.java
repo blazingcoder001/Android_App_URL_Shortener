@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import com.example.first.Retrofit.Service;
 import com.example.first.Retrofit.UserAPI;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.JsonObject;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -24,6 +26,8 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -55,7 +59,12 @@ public class Delete extends AppCompatActivity {
                 Thread t1= new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        userAPI.delete(userstr)
+                        JsonObject object= new JsonObject();
+                        object.addProperty("username",userstr);
+                        MediaType mediaType= MediaType.parse("application/json");
+                        RequestBody requestBody=RequestBody.create(mediaType,object.toString());
+//                        Log.e("*/*/**/dfsdfdffffff",userstr);
+                        userAPI.delete(requestBody)
                                 .enqueue(new Callback<Boolean>() {
                                     @Override
                                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
@@ -87,12 +96,20 @@ public class Delete extends AppCompatActivity {
                                             });
                                             t2.start();
                                         }
+                                        else{
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    Toast.makeText(context, "Account cannot be deleted due to errors!", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        }
 
                                     }
 
                                     @Override
                                     public void onFailure(Call<Boolean> call, Throwable t) {
-                                        Toast.makeText(Delete.this, "Account Cannot be created!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Delete.this, "Currently facing connection issues!", Toast.LENGTH_SHORT).show();
                                         Logger.getLogger(getClass().toString()).log(Level.SEVERE,"Error occured",t);
                                     }
                                 });

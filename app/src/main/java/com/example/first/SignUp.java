@@ -191,7 +191,7 @@ public class SignUp extends AppCompatActivity {
 
                              @Override
                              public void onFailure(Call<Boolean> call, Throwable t) {
-                                 Toast.makeText(SignUp.this, "Account Cannot be created!", Toast.LENGTH_SHORT).show();
+                                 Toast.makeText(SignUp.this, "Currently facing connection issues!", Toast.LENGTH_SHORT).show();
                                  Logger.getLogger(getClass().toString()).log(Level.SEVERE,"Error occured",t);
                              }
                          });
