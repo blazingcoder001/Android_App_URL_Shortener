@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.first.Retrofit.Service;
+import com.example.first.Retrofit.UserAPI;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -19,9 +21,18 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Delete extends AppCompatActivity {
     Connection connection;
+    Service service= new Service();
+
+    UserAPI userAPI=service.getRetrofit().create(UserAPI.class);
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,60 +55,101 @@ public class Delete extends AppCompatActivity {
                 Thread t1= new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        Connect_SQL connectSql = new Connect_SQL("JP", "jrpjp#321",
-                                "129.21.136.123", "first", "3306");
-                        try {
-                            connection = connectSql.Connection_get();
-                        } catch (ClassNotFoundException e) {
-                            throw new RuntimeException(e);
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        }
-                        String query1 = "DELETE FROM samplespace1 WHERE upper(Username)=upper('"+userstr+"')";
-                        String query2="DELETE FROM samplespace2";
-                        String query3="SET @Ind := 0;";
-                        String query4="INSERT INTO samplespace2 SELECT (@Ind:=@Ind+1) AS Ind, Username, Password, firstname, lastname, Url_Full FROM samplespace1 ORDER BY Ind ASC;";
+                        userAPI.delete(userstr)
+                                .enqueue(new Callback<Boolean>() {
+                                    @Override
+                                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                                        if(response.body()==false){
+                                            Thread t3= new Thread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    runOnUiThread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            Toast.makeText(context, "Account deleted successfully!", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                            t3.start();
 
-                        Statement s2 = null;
-                        try {
-                            s2 = connection.createStatement();
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        }
-                        try {
-                            s2.executeUpdate(query1);
-                            s2.executeUpdate(query2);
-                            s2.executeUpdate(query3);
-                            s2.executeUpdate(query4);
+                                            Thread t2= new Thread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    try {
+                                                        t3.join();
+                                                    } catch (InterruptedException e) {
+                                                        throw new RuntimeException(e);
+                                                    }
+                                                    Intent login=new Intent(Delete.this, MainActivity.class);
+                                                    startActivity(login);
+                                                }
+                                            });
+                                            t2.start();
+                                        }
 
+                                    }
 
-
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        }
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(context, "Account deleted successfully!", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                                    @Override
+                                    public void onFailure(Call<Boolean> call, Throwable t) {
+                                        Toast.makeText(Delete.this, "Account Cannot be created!", Toast.LENGTH_SHORT).show();
+                                        Logger.getLogger(getClass().toString()).log(Level.SEVERE,"Error occured",t);
+                                    }
+                                });
+//                        Connect_SQL connectSql = new Connect_SQL("JP", "jrpjp#321",
+//                                "129.21.136.123", "first", "3306");
+//                        try {
+//                            connection = connectSql.Connection_get();
+//                        } catch (ClassNotFoundException e) {
+//                            throw new RuntimeException(e);
+//                        } catch (SQLException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                        String query1 = "DELETE FROM samplespace1 WHERE upper(Username)=upper('"+userstr+"')";
+//                        String query2="DELETE FROM samplespace2";
+//                        String query3="SET @Ind := 0;";
+//                        String query4="INSERT INTO samplespace2 SELECT (@Ind:=@Ind+1) AS Ind, Username, Password, firstname, lastname, Url_Full FROM samplespace1 ORDER BY Ind ASC;";
+//
+//                        Statement s2 = null;
+//                        try {
+//                            s2 = connection.createStatement();
+//                        } catch (SQLException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                        try {
+//                            s2.executeUpdate(query1);
+//                            s2.executeUpdate(query2);
+//                            s2.executeUpdate(query3);
+//                            s2.executeUpdate(query4);
+//
+//
+//
+//                        } catch (SQLException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                Toast.makeText(context, "Account deleted successfully!", Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
 
                     }
                 });
                 t1.start();
-                Thread t2= new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            t1.join();
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                        Intent login=new Intent(Delete.this, MainActivity.class);
-                        startActivity(login);
-                    }
-                });
-                t2.start();
+//                Thread t2= new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        try {
+//                            t1.join();
+//                        } catch (InterruptedException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                        Intent login=new Intent(Delete.this, MainActivity.class);
+//                        startActivity(login);
+//                    }
+//                });
+//                t2.start();
                     }
                 });
         b2.setOnClickListener(new View.OnClickListener() {
