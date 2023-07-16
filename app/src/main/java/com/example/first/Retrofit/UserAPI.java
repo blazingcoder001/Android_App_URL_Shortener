@@ -13,11 +13,11 @@ import retrofit2.http.POST;
 public interface UserAPI {
 //    @GET("/user/get-shortened")
 //    Call<String> shortened();
-    @POST("/user/get-shortened")
-    Call<String> shortened(@Body String Original, @Body String short_pref);
+    @GET("/user/get-shortened")// Post changed to get
+    Call<String> shortened(@Body RequestBody requestBody);
     @POST("/user/signup")
     Call<Boolean> insert_user(@Body User user);
-    @POST("/user/login-check")
+    @GET("/user/login-check")// Post changed to get
     Call<Integer> check_login(@Body RequestBody requestBody);
     @POST("/user/delete-user")
     Call<Boolean> delete(@Body RequestBody requestBody);
