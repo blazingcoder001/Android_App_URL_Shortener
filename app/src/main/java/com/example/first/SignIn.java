@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -42,65 +44,75 @@ public class SignIn extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in);
+        String userstr;
+        TextInputLayout url,url_shorten;
+        EditText url_inp,url_shorten_inp;
+        url=findViewById(R.id.to_shorten_inp);
+        url_inp=url.getEditText();
+        url_shorten=findViewById(R.id.wish_inp);
+        url_shorten_inp=url_shorten.getEditText();
         DrawerLayout side=findViewById(R.id.drawer);
         NavigationView navigationView= findViewById(R.id.nav);
         MaterialToolbar topappbar= findViewById(R.id.topAppBar);
         Context context= SignIn.this;
         Navigation navigation= new Navigation( context, side, navigationView,topappbar);
         navigation.navexecute();
-        TextInputLayout username,url,url_shorten;
-        EditText url_inp,url_shorten_inp;
-        String userstr;
-        url=findViewById(R.id.to_shorten_inp);
-        url_inp=url.getEditText();
-        url_shorten=findViewById(R.id.wish_inp);
-        url_shorten_inp=url_shorten.getEditText();
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         userstr = sharedPreferences.getString("username", null);
-        JsonObject object= new JsonObject();
-        object.addProperty("username",userstr);
-        object.addProperty("url",url_inp.getText().toString());
-        object.addProperty("url_shorten",url_shorten_inp.getText().toString());
-        MediaType mediaType= MediaType.parse("application/json");
-        RequestBody requestBody=RequestBody.create(mediaType,object.toString());
-        userAPI.shortened(requestBody)
-                .enqueue(new Callback<String>() {
-                    @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
-                        if(response.body().equals(url_shorten_inp.getText().toString())){
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(context, "Successful!", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
+//        Log.e("/*/***/*/*/", url_shorten_inp.getText().toString() );
+        Button b1=findViewById(R.id.button1);
 
-                        else if(response.body().equals("failed0")){
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(context, "Failed to shorten the given URL due to database issues!", Toast.LENGTH_SHORT).show();
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url_shorten_string=url_shorten_inp.getText().toString();
+                JsonObject object= new JsonObject();
+                object.addProperty("username",userstr);
+                object.addProperty("url",url_inp.getText().toString());
+                object.addProperty("url_shorten",url_shorten_inp.getText().toString());
+                MediaType mediaType= MediaType.parse("application/json");
+                RequestBody requestBody=RequestBody.create(mediaType,object.toString());
+                userAPI.shortened(requestBody)
+                        .enqueue(new Callback<StringPass>() {
+                            @Override
+                            public void onResponse(Call<StringPass> call, Response<StringPass> response) {
+                                if(response.body().getUrl_shorten().equals(url_shorten_string)){
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(context, "Successful!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                                 }
-                            });
-                        }
-                        else if(response.body().equals("failed1")){
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(context, "URL already taken! Please try another one.", Toast.LENGTH_SHORT).show();
+
+                                else if(response.body().getUrl_shorten().equals("failed0")){
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(context, "Failed to shorten the given URL due to database issues!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                                 }
-                            });
-                        }
-                    }
+                                else if(response.body().getUrl_shorten().equals("failed1")){
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(context, "URL already taken! Please try another one.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                            }
 
-                    @Override
-                    public void onFailure(Call<String> call, Throwable t) {
-                        Toast.makeText(SignIn.this, "Currently facing connection issues!", Toast.LENGTH_SHORT).show();
-                        Logger.getLogger(getClass().toString()).log(Level.SEVERE,"Error occured",t);
+                            @Override
+                            public void onFailure(Call<StringPass> call, Throwable t) {
+                                Toast.makeText(SignIn.this, "Currently facing connection issues!", Toast.LENGTH_SHORT).show();
+                                Logger.getLogger(getClass().toString()).log(Level.SEVERE,"Error occured",t);
 
-                    }
-                });
+                            }
+                        });
+            }
+        });
+
 //        side.setScrimColor(ContextCompat.getColor(this,R.color.background));
 //        side.closeDrawer(GravityCompat.START);
 //        //navigationView.inflateMenu(R.menu.navigation_drawer);
