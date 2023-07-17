@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,9 +25,14 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.JsonObject;
 
 import java.util.NavigableMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SignIn extends AppCompatActivity {
     Service service= new Service();
@@ -57,7 +63,44 @@ public class SignIn extends AppCompatActivity {
         object.addProperty("url_shorten",url_shorten_inp.getText().toString());
         MediaType mediaType= MediaType.parse("application/json");
         RequestBody requestBody=RequestBody.create(mediaType,object.toString());
-        userAPI.shortened(requestBody);
+        userAPI.shortened(requestBody)
+                .enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        if(response.body().equals(url_shorten_inp.getText().toString())){
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(context, "Successful!", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+
+                        else if(response.body().equals("failed0")){
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(context, "Failed to shorten the given URL due to database issues!", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                        else if(response.body().equals("failed1")){
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(context, "URL already taken! Please try another one.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Toast.makeText(SignIn.this, "Currently facing connection issues!", Toast.LENGTH_SHORT).show();
+                        Logger.getLogger(getClass().toString()).log(Level.SEVERE,"Error occured",t);
+
+                    }
+                });
 //        side.setScrimColor(ContextCompat.getColor(this,R.color.background));
 //        side.closeDrawer(GravityCompat.START);
 //        //navigationView.inflateMenu(R.menu.navigation_drawer);
