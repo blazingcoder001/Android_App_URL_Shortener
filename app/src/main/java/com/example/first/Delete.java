@@ -113,60 +113,12 @@ public class Delete extends AppCompatActivity {
                                         Logger.getLogger(getClass().toString()).log(Level.SEVERE,"Error occured",t);
                                     }
                                 });
-//                        Connect_SQL connectSql = new Connect_SQL("JP", "jrpjp#321",
-//                                "129.21.136.123", "first", "3306");
-//                        try {
-//                            connection = connectSql.Connection_get();
-//                        } catch (ClassNotFoundException e) {
-//                            throw new RuntimeException(e);
-//                        } catch (SQLException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//                        String query1 = "DELETE FROM samplespace1 WHERE upper(Username)=upper('"+userstr+"')";
-//                        String query2="DELETE FROM samplespace2";
-//                        String query3="SET @Ind := 0;";
-//                        String query4="INSERT INTO samplespace2 SELECT (@Ind:=@Ind+1) AS Ind, Username, Password, firstname, lastname, Url_Full FROM samplespace1 ORDER BY Ind ASC;";
-//
-//                        Statement s2 = null;
-//                        try {
-//                            s2 = connection.createStatement();
-//                        } catch (SQLException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//                        try {
-//                            s2.executeUpdate(query1);
-//                            s2.executeUpdate(query2);
-//                            s2.executeUpdate(query3);
-//                            s2.executeUpdate(query4);
-//
-//
-//
-//                        } catch (SQLException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                Toast.makeText(context, "Account deleted successfully!", Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
+
 
                     }
                 });
                 t1.start();
-//                Thread t2= new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        try {
-//                            t1.join();
-//                        } catch (InterruptedException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//                        Intent login=new Intent(Delete.this, MainActivity.class);
-//                        startActivity(login);
-//                    }
-//                });
-//                t2.start();
+
                     }
                 });
         b2.setOnClickListener(new View.OnClickListener() {

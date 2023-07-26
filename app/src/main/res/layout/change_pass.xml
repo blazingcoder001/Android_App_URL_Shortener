@@ -191,13 +191,7 @@
 
                         </com.google.android.material.textfield.TextInputLayout>
 
-<!--                        <com.google.android.material.textfield.TextInputEditText-->
-<!--                            id="@+id/usernameinp"-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="0dp"-->
-<!--                            android:visibility="gone"-->
-<!--                            android:inputType="text"-->
-<!--                            tools:ignore="MissingConstraints" />-->
+
 
 
                         <com.google.android.material.button.MaterialButton

@@ -125,15 +125,7 @@ public class SignUp extends AppCompatActivity {
 
 
 
-//                Connect_SQL connectSql = new Connect_SQL("JP", "jrpjp#321",
-//                        "129.21.136.123", "first", "3306");
-//                try {
-//                    connection = connectSql.Connection_get();
-//                } catch (ClassNotFoundException e) {
-//                    throw new RuntimeException(e);
-//                } catch (SQLException e) {
-//                    throw new RuntimeException(e);
-//                }
+
                 userl = findViewById(R.id.usernameinp);
                 user = userl.getEditText();
                 passwordl = findViewById(R.id.passwordinp);

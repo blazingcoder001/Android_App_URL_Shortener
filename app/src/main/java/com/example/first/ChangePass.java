@@ -63,33 +63,7 @@ public class ChangePass extends AppCompatActivity {
         Context context= ChangePass.this;
         Navigation navigation= new Navigation( context, side, navigationView,topappbar);
         navigation.navexecute();
-//        old_pas_ed.setOnTouchListener(new View.OnTouchListener() {
-//            @SuppressLint("ClickableViewAccessibility")
-//            @Override
-//            public boolean onTouch(View view, MotionEvent motionEvent) {
-//                final int DRAWABLE_RIGHT =2;
-//                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-//                    if (motionEvent.getRawX() >= (old_pas_ed.getRight() - old_pas_ed.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-//                        // Toggle password visibility
-//                        if (old_pas_ed.getTransformationMethod() == PasswordTransformationMethod.getInstance()) {
-//                            old_pas_ed.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-//                                old_pas_ed.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.eye_off, 0);
-//                            }
-//                        } else {
-//                            old_pas_ed.setTransformationMethod(PasswordTransformationMethod.getInstance());
-//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-//                                old_pas_ed.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.eye, 0);
-//                            }
-//                        }
-//                        return true;
-//                    }
-//                }
-//                return false;
-//            }
-//
-//
-//        });
+
         PasswordToggle toggle= new PasswordToggle(old_pas_ed);
         toggle.execute();
         PasswordToggle toggle1=new PasswordToggle(new_pa_ed);
@@ -191,98 +165,7 @@ public class ChangePass extends AppCompatActivity {
                                         Logger.getLogger(getClass().toString()).log(Level.SEVERE,"Error occured",t);
                                     }
                                 });
-//                        Connect_SQL connectSql = new Connect_SQL("JP", "jrpjp#321",
-//                                "129.21.136.123", "first", "3306");
-//                        try {
-//                            connection = connectSql.Connection_get();
-//                        } catch (ClassNotFoundException e) {
-//                            throw new RuntimeException(e);
-//                        } catch (SQLException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//                        String query = "select * from samplespace1 where upper(Username)=upper('" + userstr + "') and Password ='" + old_pas_ed.getText().toString() + "';";
-//                        Statement s1;
-//                        try {
-//                            s1 = connection.createStatement();
-//                        } catch (SQLException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//                        ResultSet res = null;
-//                        try {
-//                            res = s1.executeQuery(query);
-//                        } catch (SQLException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//
-//                        ResultSet finalRes = res;
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                while (true) {
-//                                    try {
-//                                        if (!finalRes.next()) {
-//
-//                                            old_pa.setError("Password is incorrect.");
-//                                            break;
-//                                        }
-//                                        Thread t2= new Thread(new Runnable() {
-//                                            @Override
-//                                            public void run() {
-//                                                Connect_SQL connectSql = new Connect_SQL("JP", "jrpjp#321",
-//                                                        "129.21.136.123", "first", "3306");
-//
-//                                                String query2 = "UPDATE samplespace1 SET Password='" +new_pa_ed.getText().toString()+"' WHERE Username='"
-//                                                        +userstr+"';";
-//
-//                                                Statement s2 = null;
-//                                                try {
-//                                                    s2 = connection.createStatement();
-//                                                } catch (SQLException e) {
-//                                                    throw new RuntimeException(e);
-//                                                }
-//                                                try {
-//                                                    s2.executeUpdate(query2);
-//
-//                                                } catch (SQLException e) {
-//                                                    throw new RuntimeException(e);
-//                                                }
-//                                                runOnUiThread(new Runnable() {
-//                                                    @Override
-//                                                    public void run() {
-//                                                        Toast.makeText(context, "Password Successfully Changed!", Toast.LENGTH_SHORT).show();
-//
-//                                                    }
-//                                                });
-//
-//
-//                                            }
-//                                        });
-//                                        t2.start();
-//                                        Thread t3= new Thread(new Runnable() {
-//                                            @Override
-//                                            public void run() {
-//                                                try {
-//                                                    t2.join();
-//                                                    Intent change= new Intent(context,MainActivity.class);
-//                                                    context.startActivity(change);
-//                                                } catch (InterruptedException e) {
-//                                                    throw new RuntimeException(e);
-//                                                }
-//
-//                                            }
-//                                        });
-//                                        t3.start();
-//                                        break;
-//
-//
-//                                    } catch (SQLException e) {
-//                                        throw new RuntimeException(e);
-//                                    }
-//
-//
-//                                }
-//                            }
-//                        });
+
                     }
                 });
                 t.start();

@@ -31,13 +31,6 @@ public class UserCheck {
             return 0;
         else
             return 1;
-//        else {
-//            ResultSet res2;
-//            res2 = s1.executeQuery(query2);
-//            if (res2.next())
-//                return 2;
-//            else
-//                return 0;
-//        }
+
     }
 }

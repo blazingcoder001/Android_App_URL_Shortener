@@ -20,7 +20,6 @@ public class Navigation extends AppCompatActivity {
     Context context;
 
     NavigationView navigationView;
-    //navigationView.inflateMenu(R.menu.navigation_drawer);
     MaterialToolbar topappbar;
 
     Navigation(Context context, DrawerLayout side, NavigationView navigationView, MaterialToolbar topappbar ) {
