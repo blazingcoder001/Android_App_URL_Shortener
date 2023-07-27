@@ -21,6 +21,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.first.Retrofit.Service;
 import com.example.first.Retrofit.UserAPI;
+import com.example.first.user.User;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputLayout;
@@ -44,7 +45,7 @@ public class SignIn extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in);
-        String userstr;
+        String userstr,passtr,firststr,laststr;
         TextInputLayout url,url_shorten;
         EditText url_inp,url_shorten_inp;
         url=findViewById(R.id.to_shorten_inp);
@@ -58,21 +59,37 @@ public class SignIn extends AppCompatActivity {
         Navigation navigation= new Navigation( context, side, navigationView,topappbar);
         navigation.navexecute();
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("url_short", url_shorten_inp.getText().toString());
         userstr = sharedPreferences.getString("username", null);
+        passtr = sharedPreferences.getString("password", null);
+        firststr = sharedPreferences.getString("firstname", null);
+        laststr = sharedPreferences.getString("lastname", null);
+        editor.apply();
+
 //        Log.e("/*/***/*/*/", url_shorten_inp.getText().toString() );
         Button b1=findViewById(R.id.button1);
 
+        String finalUserstr = userstr;
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String url_shorten_string=url_shorten_inp.getText().toString();
-                JsonObject object= new JsonObject();
-                object.addProperty("username",userstr);
-                object.addProperty("url",url_inp.getText().toString());
-                object.addProperty("url_shorten",url_shorten_inp.getText().toString());
-                MediaType mediaType= MediaType.parse("application/json");
-                RequestBody requestBody=RequestBody.create(mediaType,object.toString());
-                userAPI.shortened(requestBody)
+//                JsonObject object= new JsonObject();
+//                object.addProperty("username", finalUserstr);
+//                object.addProperty("url",url_inp.getText().toString());
+//                object.addProperty("url_shorten",url_shorten_inp.getText().toString());
+//                MediaType mediaType= MediaType.parse("application/json");
+//                RequestBody requestBody=RequestBody.create(mediaType,object.toString());
+                User user=new User();
+                user.setUsername(finalUserstr);
+                user.setPassword(passtr);
+                user.setFirstname(firststr);
+                user.setLastname(laststr);
+                user.setUrl_Full(url_inp.getText().toString());
+                user.setUrl_shorten(url_shorten_inp.getText().toString());
+//                userAPI.shortened(requestBody)
+                userAPI.shortened(user)
                         .enqueue(new Callback<StringPass>() {
                             @Override
                             public void onResponse(Call<StringPass> call, Response<StringPass> response) {
