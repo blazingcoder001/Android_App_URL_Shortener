@@ -48,11 +48,12 @@ public class Delete extends AppCompatActivity {
         Navigation navigation= new Navigation( context, side, navigationView,topappbar);
         navigation.navexecute();
         Button b1,b2;
-        String userstr;
+        String userstr,url_short;
         b1=findViewById(R.id.button1);
         b2=findViewById(R.id.button2);
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         userstr = sharedPreferences.getString("username", null);
+        url_short=sharedPreferences.getString("url_short",null);
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,6 +62,7 @@ public class Delete extends AppCompatActivity {
                     public void run() {
                         JsonObject object= new JsonObject();
                         object.addProperty("username",userstr);
+                        object.addProperty("url_short",url_short);
                         MediaType mediaType= MediaType.parse("application/json");
                         RequestBody requestBody=RequestBody.create(mediaType,object.toString());
 //                        Log.e("*/*/**/dfsdfdffffff",userstr);

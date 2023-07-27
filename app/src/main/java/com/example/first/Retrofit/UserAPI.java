@@ -15,7 +15,7 @@ public interface UserAPI {
 //    @GET("/user/get-shortened")
 //    Call<String> shortened();
     @POST("/user/get-shortened")// Post changed to get
-    Call<StringPass> shortened(@Body RequestBody requestBody);
+    Call<StringPass> shortened(@Body User user);
     @POST("/user/signup")
     Call<Boolean> insert_user(@Body User user);
     @POST("/user/login-check")// Post changed to get
