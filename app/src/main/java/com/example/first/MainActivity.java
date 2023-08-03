@@ -152,7 +152,9 @@ public class MainActivity extends AppCompatActivity {
                                 SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putString("username", user.getText().toString());
-                                editor.apply();
+                                editor.putString("password", password.getText().toString());
+
+                editor.apply();
 
 
             }
