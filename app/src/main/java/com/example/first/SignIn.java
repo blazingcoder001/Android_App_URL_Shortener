@@ -93,7 +93,7 @@ public class SignIn extends AppCompatActivity {
                         .enqueue(new Callback<StringPass>() {
                             @Override
                             public void onResponse(Call<StringPass> call, Response<StringPass> response) {
-                                if(response.body().getUrl_shorten().equals(url_shorten_string)){
+                                if(response.body().getUrl_shorten().equals("success")){
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {

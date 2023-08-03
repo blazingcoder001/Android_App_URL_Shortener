@@ -138,6 +138,7 @@ public class SignUp extends AppCompatActivity {
                 lastinp = lastinpl.getEditText();
                 //API Code*****
                 User userinfo= new User();
+                userinfo.setUrl_shorten("");
                 userinfo.setUsername(user.getText().toString());
                 userinfo.setPassword((password.getText().toString()));
                 userinfo.setFirstname(firstinp.getText().toString());
