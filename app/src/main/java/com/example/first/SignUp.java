@@ -10,10 +10,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -105,6 +107,20 @@ public class SignUp extends AppCompatActivity {
                 startActivity(login);
             }
         });
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+
+        float scrollThresholdDp = 440;
+
+        if (dpWidth < scrollThresholdDp) {
+            // Get the ScrollView in your layout
+            ScrollView scrollView = findViewById(R.id.scroll);
+            if (scrollView != null) {
+                // Enable scrolling for the ScrollView
+                scrollView.setScrollContainer(true);
+            }
+        }
+
     }
     public void Btnclick(View v)  {
 
