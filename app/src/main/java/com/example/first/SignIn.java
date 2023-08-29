@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -66,6 +69,16 @@ public class SignIn extends AppCompatActivity {
         firststr = sharedPreferences.getString("firstname", null);
         laststr = sharedPreferences.getString("lastname", null);
         editor.apply();
+        ConstraintLayout layout=(ConstraintLayout) findViewById(R.id.sign_in);
+        layout.setOnTouchListener (new View.OnTouchListener () {
+            @Override
+            public boolean onTouch (View v, MotionEvent event) {
+                // Hide the soft keyboard when touch outside
+                InputMethodManager imm = (InputMethodManager)getSystemService (Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow (v.getWindowToken (), 0);
+                return false;
+            }
+        });
 
 //        Log.e("/*/***/*/*/", url_shorten_inp.getText().toString() );
         Button b1=findViewById(R.id.button1);

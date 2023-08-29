@@ -1,6 +1,7 @@
 package com.example.first;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -14,6 +15,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +59,16 @@ public class MainActivity extends AppCompatActivity {
         EditText user=userl.getEditText();
         TextInputLayout passwordl=findViewById(R.id.password);
         EditText password=passwordl.getEditText();
+        ConstraintLayout layout=(ConstraintLayout) findViewById(R.id.main);
+        layout.setOnTouchListener (new View.OnTouchListener () {
+            @Override
+            public boolean onTouch (View v, MotionEvent event) {
+                // Hide the soft keyboard when touch outside
+                InputMethodManager imm = (InputMethodManager)getSystemService (Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow (v.getWindowToken (), 0);
+                return false;
+            }
+        });
 
         PasswordToggle toggle= new PasswordToggle(password);
         toggle.execute();

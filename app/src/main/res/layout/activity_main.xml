@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/shiny_bgtot"
     tools:context=".MainActivity"
+    android:id="@+id/main"
     >
 
 

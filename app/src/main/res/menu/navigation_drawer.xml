@@ -6,6 +6,11 @@
         android:title="" >
         <menu>
             <item
+                android:id="@+id/home"
+                android:title="Home"
+                android:checkable="true"
+                android:background="@drawable/item_shape"/>
+            <item
                 android:id="@+id/Change"
                 android:title="Change Password"
                 android:checkable="true"

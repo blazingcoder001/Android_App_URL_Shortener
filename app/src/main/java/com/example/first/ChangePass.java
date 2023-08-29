@@ -12,12 +12,14 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.first.Retrofit.Service;
@@ -63,6 +65,16 @@ public class ChangePass extends AppCompatActivity {
         Context context= ChangePass.this;
         Navigation navigation= new Navigation( context, side, navigationView,topappbar);
         navigation.navexecute();
+        ConstraintLayout layout=(ConstraintLayout) findViewById(R.id.change_pass);
+        layout.setOnTouchListener (new View.OnTouchListener () {
+            @Override
+            public boolean onTouch (View v, MotionEvent event) {
+                // Hide the soft keyboard when touch outside
+                InputMethodManager imm = (InputMethodManager)getSystemService (Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow (v.getWindowToken (), 0);
+                return false;
+            }
+        });
 
         PasswordToggle toggle= new PasswordToggle(old_pas_ed);
         toggle.execute();

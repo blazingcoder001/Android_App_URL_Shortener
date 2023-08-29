@@ -38,6 +38,10 @@ public class Navigation extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id= item.getItemId();
                 Intent intent;
+                if (id==R.id.home){
+                    intent=new Intent(context, SignIn.class);
+                    context.startActivity(intent);
+                }
                 if(id==R.id.Change){
                     intent= new Intent(context,ChangePass.class);
                     context.startActivity(intent);

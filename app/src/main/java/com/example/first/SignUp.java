@@ -14,6 +14,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.first.Retrofit.Service;
 import com.example.first.Retrofit.UserAPI;
@@ -57,6 +59,16 @@ public class SignUp extends AppCompatActivity {
         EditText password= passwordl[0].getEditText();
         TextInputLayout retypepasswordl=findViewById(R.id.retypeinp);
         EditText retypepassword=retypepasswordl.getEditText();
+        ConstraintLayout layout=(ConstraintLayout) findViewById(R.id.sign_up);
+        layout.setOnTouchListener (new View.OnTouchListener () {
+            @Override
+            public boolean onTouch (View v, MotionEvent event) {
+                // Hide the soft keyboard when touch outside
+                InputMethodManager imm = (InputMethodManager)getSystemService (Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow (v.getWindowToken (), 0);
+                return false;
+            }
+        });
 
 
 
@@ -111,15 +123,18 @@ public class SignUp extends AppCompatActivity {
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
 
         float scrollThresholdDp = 440;
+        Log.e("dpWidth", String.valueOf(dpWidth) );
 
-        if (dpWidth < scrollThresholdDp) {
-            // Get the ScrollView in your layout
-            ScrollView scrollView = findViewById(R.id.scroll);
-            if (scrollView != null) {
-                // Enable scrolling for the ScrollView
-                scrollView.setScrollContainer(true);
-            }
-        }
+//        if (dpWidth < scrollThresholdDp) {
+//            // Get the ScrollView in your layout
+//            ScrollView scrollView = findViewById(R.id.scroll);
+//            if (scrollView != null) {
+//                Log.e("scroll dpi", "213123213213 ");
+//
+//                // Enable scrolling for the ScrollView
+//                scrollView.setScrollContainer(true);
+//            }
+//        }
 
     }
     public void Btnclick(View v)  {
