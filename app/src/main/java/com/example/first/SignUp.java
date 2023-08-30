@@ -16,6 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,15 +61,30 @@ public class SignUp extends AppCompatActivity {
         TextInputLayout retypepasswordl=findViewById(R.id.retypeinp);
         EditText retypepassword=retypepasswordl.getEditText();
         ConstraintLayout layout=(ConstraintLayout) findViewById(R.id.sign_up);
-        layout.setOnTouchListener (new View.OnTouchListener () {
-            @Override
-            public boolean onTouch (View v, MotionEvent event) {
-                // Hide the soft keyboard when touch outside
-                InputMethodManager imm = (InputMethodManager)getSystemService (Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow (v.getWindowToken (), 0);
-                return false;
-            }
-        });
+        LinearLayout linearLayout=(LinearLayout) findViewById(R.id.sign_up_linear);
+        if(layout!=null) {
+            layout.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    // Hide the soft keyboard when touch outside
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    return false;
+                }
+            });
+        }
+
+        else{
+            linearLayout.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    // Hide the soft keyboard when touch outside
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    return false;
+                }
+            });
+        }
 
 
 
